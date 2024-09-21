@@ -1,25 +1,12 @@
 package com.careri78.stores.app;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
-import com.careri78.stores.core.services.BookRepositoryImpl;
-import com.careri78.stores.core.services.BooksRepository;
-
-import jakarta.persistence.EntityManager;
+import com.careri78.stores.core.repositories.BookRepositoryConfiguration;
+import com.careri78.stores.cqrs.CqrsConfiguration;
 
 @Configuration
+@Import({ CqrsConfiguration.class, BookRepositoryConfiguration.class })
 public class AppConfiguration {
-
-    final EntityManager entityManager;
-
-    public AppConfiguration(EntityManager entityManager) {
-        this.entityManager = entityManager;
-    }
-
-    @Bean
-    BooksRepository myBooksRepository() {
-        return new BookRepositoryImpl(entityManager);
-    }
-    
 }

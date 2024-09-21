@@ -1,7 +1,7 @@
 package com.careri78.stores.core.queries;
 
-import com.careri78.stores.core.services.BookRepositoryImpl;
-import com.careri78.stores.core.services.BooksRepository;
+import com.careri78.stores.core.repositories.BookRepositoryImpl;
+import com.careri78.stores.core.repositories.BooksRepository;
 
 public final class GetBookQueryHandler implements QueryHandler<GetBookQuery> {
     private final BooksRepository repository;

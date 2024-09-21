@@ -1,4 +1,4 @@
-package com.careri78.stores.core.services;
+package com.careri78.stores.core.repositories;
 
 import org.springframework.data.repository.CrudRepository;
 
