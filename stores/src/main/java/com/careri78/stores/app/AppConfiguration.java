@@ -3,8 +3,8 @@ package com.careri78.stores.app;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.careri78.stores.core.services.BookRepositoryImpl;
 import com.careri78.stores.core.services.BooksRepository;
-import com.careri78.stores.inmemory.services.BookRepositoryImpl;
 
 import jakarta.persistence.EntityManager;
 
@@ -18,7 +18,7 @@ public class AppConfiguration {
     }
 
     @Bean
-    public BooksRepository myBooksRepository() {
+    BooksRepository myBooksRepository() {
         return new BookRepositoryImpl(entityManager);
     }
     
