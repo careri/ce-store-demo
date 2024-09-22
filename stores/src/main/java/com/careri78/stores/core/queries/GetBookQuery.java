@@ -1,9 +1,12 @@
 package com.careri78.stores.core.queries;
 
-public final class GetBookQuery {
+import com.careri78.stores.cqrs.ValueRequest;
+import com.careri78.stores.domain.Book;
+
+public final class GetBookQuery implements ValueRequest<Book> {
     private Long id;
     private String title;
-    
+
     public Long getId() {
         return id;
     }

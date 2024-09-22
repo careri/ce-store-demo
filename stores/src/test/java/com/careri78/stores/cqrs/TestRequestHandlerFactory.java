@@ -3,16 +3,15 @@ package com.careri78.stores.cqrs;
 import java.util.Map;
 
 public final class TestRequestHandlerFactory {
-    private final Map<Class<?>, Object> handlerByRequest = new Map<Class<?>, Object>();
+    private final Map<Class<?>, CqrsRequestHandlerMetadata> handlerByRequest = Map.of();
 
-    public TestRequestHandlerFactory(ValueRequestHandlerBase... handlers) {
-        for (ValueRequestHandlerBase handler : handlers) {
+    public TestRequestHandlerFactory(Class<?>... handlers) {
+        for (Class<?> handler : handlers) {
             addHandler(handler);
         }
     }
 
-    private void addHandler(ValueRequestHandlerBase handler) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addHandler'");
+    private void addHandler(Class<?> handler) {
+        handlerByRequest.put(handler, CqrsRequestHandlerMetadata.createFromHandlerClass(handler));
     }
 }

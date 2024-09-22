@@ -1,13 +1,21 @@
 package com.careri78.stores.core.queries;
 
-import com.careri78.stores.core.repositories.BookRepositoryImpl;
-import com.careri78.stores.core.repositories.BooksRepository;
+import java.util.concurrent.CompletableFuture;
 
-public final class GetBookQueryHandler implements QueryHandler<GetBookQuery> {
+import com.careri78.stores.core.repositories.BooksRepository;
+import com.careri78.stores.cqrs.ValueRequestHandler;
+import com.careri78.stores.domain.Book;
+
+public final class GetBookQueryHandler implements ValueRequestHandler<GetBookQuery, Book> {
     private final BooksRepository repository;
 
     public GetBookQueryHandler(BooksRepository repository) {
-        super();
         this.repository = repository;
+    }
+
+    @Override
+    public CompletableFuture<Book> getAsync(GetBookQuery query) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getAsync'");
     }
 }
