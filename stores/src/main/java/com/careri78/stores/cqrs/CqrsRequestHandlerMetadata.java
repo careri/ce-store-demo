@@ -27,7 +27,7 @@ final class CqrsRequestHandlerMetadata {
         return returnClass;
     }
 
-    public static CqrsRequestHandlerMetadata createFromHandlerClass(Class<?> requestHandlerClass) {
+    public static CqrsRequestHandlerMetadata createFromHandlerClass(Class<? extends ValueRequestHandlerBase> requestHandlerClass) {
         ParameterizedType interfaceClass = getHandlerInterface(requestHandlerClass);
         Type[] typeParameters = interfaceClass.getActualTypeArguments();
         if (typeParameters.length != 2) {

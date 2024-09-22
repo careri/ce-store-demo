@@ -1,4 +1,5 @@
 # ce-store-demo
+
 A java Spring Boot demo
 
 This is my first attempt at writing a Spring Boot application.

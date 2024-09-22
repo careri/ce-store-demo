@@ -11,6 +11,11 @@ public final class CqrsConfiguration {
     BeanFactory beanFactory;
 
     @Bean
+    CqrsRequestHandlerMetadataSet getMetadataSet() {
+        return new CqrsRequestHandlerMetadataSet();
+    }
+
+    @Bean
     @Scope("Prototype")
     CqrsRequestHandlerFactory getRequestHandlerFactory() {
         return new CqrsRequestHandlerFactoryImpl(beanFactory);
