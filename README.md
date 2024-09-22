@@ -16,6 +16,10 @@ Each microservice will be a docker image.
 * Books microservice, the source of all available books. Not all books is a product.
 * Pricing, will provide a price based on the shop and book provided. 
 
+## IDE
+
+Developed with VS Code and a .devcontainer for Java.
+
 ## Dependency Injection
 
 I'm using the import of differrent configurations to build the full application config.
@@ -41,6 +45,7 @@ A naive implementation of the CQRS pattern:
 https://martinfowler.com/bliki/CQRS.html
 
 **Partial DONE, wrote the complex reflection part**
+
 **TODO, populate using Dependency Injection**
 
 ### Query
@@ -58,6 +63,19 @@ I intend to have an event bus backed by RabbitMQ. The microservices will generat
 The events will first be stored in the persistent layer as en entity, this is the Outbox pattern.
 
 A worker thread will consume the inbox and publish to RabbitMQ.
+
+## Docker
+
+## Layered build
+
+The Dockerfile is a layered build meaning that the final output will only be the output needed to run in combination with a small docker image with a JRE.
+
+**TODO**
+
+
+### Docker Compose
+
+All microservices and dependencies will be configured using docker compose.
 
 **TODO**
 
