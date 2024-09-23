@@ -11,7 +11,6 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import com.careri78.cqrs.core.CqrsDispatcher;
 import com.careri78.cqrs.core.GetIntQuery;
 
-// @SpringBootTest()
 class CqrsDispatcherImplBeanTests {
 
 	@Test

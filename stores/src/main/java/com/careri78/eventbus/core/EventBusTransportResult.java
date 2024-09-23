@@ -4,12 +4,16 @@ import io.micrometer.common.lang.Nullable;
 
 public class EventBusTransportResult {
 
-    public static <T> EventBusTransportResult failed(EventBusTransport transport2, PublishContext<T> ctx, Throwable error) {
+    public static <T> EventBusTransportResult failed(EventBusTransport transport, PublishContext<T> ctx, Throwable error) {
         return create(
             EventBusResultCode.Failed, 
-            transport2, 
+            transport, 
             ctx, 
             error);
+    }
+
+    public static <T> EventBusTransportResult success(EventBusTransport transport, PublishContext<T> ctx) {
+        return create(EventBusResultCode.Success, transport, ctx, null);
     }
 
     private static <T> EventBusTransportResult create(EventBusResultCode code, EventBusTransport transport, PublishContext<T> ctx, @Nullable Throwable e) {
