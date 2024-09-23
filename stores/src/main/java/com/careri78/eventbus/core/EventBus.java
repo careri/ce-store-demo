@@ -4,7 +4,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 public interface EventBus {
-    <T> CompletableFuture<PublishResult<T>> publishAsync(T message, Consumer<PublishContext<T>> initContext);
+    <T> CompletableFuture<EventBusPublishResult<T>> publishAsync(T message, Consumer<PublishContext<T>> initContext);
 
-    <T> CompletableFuture<PublishResult<T>> publishAsync(T message);
+    <T> CompletableFuture<EventBusPublishResult<T>> publishAsync(T message);
 }

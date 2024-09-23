@@ -17,7 +17,7 @@ public final class EventBusDefault implements EventBus {
     }
 
     @Override
-    public <T> CompletableFuture<PublishResult<T>> publishAsync(final T message,
+    public <T> CompletableFuture<EventBusPublishResult<T>> publishAsync(final T message,
             final Consumer<PublishContext<T>> initContext) {
         final PublishContext<T> ctx = PublishContext.create(message, transports);
         initContext.accept(ctx);
@@ -28,11 +28,27 @@ public final class EventBusDefault implements EventBus {
         final List<CompletableFuture<EventBusTransportResult>> restultFutures = tasks
                 .stream()
                 .map(t -> t.getResultAsync())
-                .collect(Collectors.toList());
+                .collect(Collectors.toUnmodifiableList());
         final CompletableFuture<Collection<EventBusTransportResult>> resultsFuture = getResultsAsync(restultFutures);
         return resultsFuture
-                .thenApply(r -> new PublishResult<T>())
-                .exceptionally(e -> new PublishResult<T>());
+                .thenApply(r -> createSuccessResult(ctx, r))
+                .exceptionally(e -> createFailedResult(ctx, e));
+    }
+
+    private <T> EventBusPublishResult<T> createSuccessResult(PublishContext<T> ctx, Collection<EventBusTransportResult> transportResults) {
+        List<Throwable> errors = transportResults
+            .stream()
+            .filter(result -> result.getResultCode() == EventBusResultCode.Failed)
+            .map(result -> result.getThrowable())
+            .collect(Collectors.toUnmodifiableList());
+        if (errors.isEmpty()) {
+            return new EventBusPublishResult<T>(ctx.getMessage(), ctx.getTransportNames(), ctx.getHeaders(), null);
+        }
+        return new EventBusPublishResult<T>(ctx.getMessage(), ctx.getTransportNames(), ctx.getHeaders(), new EventBusTransportException("Some transports failed", errors));
+    }
+
+    private <T> EventBusPublishResult<T> createFailedResult(PublishContext<T> ctx, Throwable error) {
+        return new EventBusPublishResult<T>(ctx.getMessage(), ctx.getTransportNames(), ctx.getHeaders(), error);
     }
 
     private CompletableFuture<Collection<EventBusTransportResult>> getResultsAsync(
@@ -57,7 +73,7 @@ public final class EventBusDefault implements EventBus {
     }
 
     @Override
-    public <T> CompletableFuture<PublishResult<T>> publishAsync(final T message) {
+    public <T> CompletableFuture<EventBusPublishResult<T>> publishAsync(final T message) {
         return publishAsync(message, ctx -> {
         });
     }
@@ -101,10 +117,5 @@ public final class EventBusDefault implements EventBus {
 
             return EventBusTransportResult.failed(transport, context, error);
         }
-
-        private <T> PublishResult<T> createResult(@Nullable EventBusTransportResult result, @Nullable Throwable error) {
-
-        }
-
     }
 }
