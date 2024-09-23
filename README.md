@@ -25,29 +25,27 @@ Developed with VS Code and a .devcontainer for Java.
 
 I'm using the import of differrent configurations to build the full application config.
 
-**DONE, but untested**
+✔️ (Works but needs to be extended)
 
 ## Persistance
 
 Running the code outside of docker will use the H2 inmemory storage.
 Once I have the docker compose in place a MongoDb will be used as backend.
 
-**DONE, but untested**
+✔️ (Not tested with MongoDb)
 
 ## Swagger
 
 I intend to have swagger exposed for testing the endpoints.
 
-**TODO**
+:x:
 
 ## CQRS
 
-A naive implementation of the CQRS pattern:
+A simple implementation of the CQRS pattern:
 https://martinfowler.com/bliki/CQRS.html
 
-**Partial DONE, wrote the complex reflection part**
-
-**TODO, populate using Dependency Injection**
+✔️
 
 ### Query
 
@@ -71,14 +69,14 @@ A worker thread will consume the inbox and publish to RabbitMQ.
 
 The Dockerfile is a layered build meaning that the final output will only be the output needed to run in combination with a small docker image with a JRE.
 
-**TODO**
+:x:
 
 
 ### Docker Compose
 
 All microservices and dependencies will be configured using docker compose.
 
-**TODO**
+:x:
 
 
 
