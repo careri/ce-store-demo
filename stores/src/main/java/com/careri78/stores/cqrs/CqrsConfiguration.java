@@ -18,6 +18,7 @@ public class CqrsConfiguration {
     }
 
     @Bean
+    @Scope("prototype")
     CqrsRequestHandlerSet getCqrsRequestHandlerSet() {
         Map<String, ValueRequestHandlerBase> beansOfType = beanFactory.getBeansOfType(ValueRequestHandlerBase.class);
         return new CqrsRequestHandlerSet(beansOfType.values());
