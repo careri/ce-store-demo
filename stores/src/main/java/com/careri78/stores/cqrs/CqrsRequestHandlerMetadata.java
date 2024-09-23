@@ -4,17 +4,17 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
 final class CqrsRequestHandlerMetadata {
-    private final Class<?> handlerClass;
+    private final Class<? extends ValueRequestHandlerBase> handlerClass;
     private final Class<?> queryClass;
     private final Class<?> returnClass;
 
-    private CqrsRequestHandlerMetadata(Class<?> handlerClass, Class<?> queryClass, Class<?> returnClass) {
+    private CqrsRequestHandlerMetadata(Class<? extends ValueRequestHandlerBase> handlerClass, Class<?> queryClass, Class<?> returnClass) {
         this.handlerClass = handlerClass;
         this.queryClass = queryClass;
         this.returnClass = returnClass;
     }
 
-    public Class<?> getHandlerClass() {
+    public Class<? extends ValueRequestHandlerBase> getHandlerClass() {
         return handlerClass;
     }
 

@@ -1,14 +1,16 @@
 package com.careri78.stores.cqrs;
 
-import org.springframework.beans.factory.BeanFactory;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
 
-public final class CqrsConfiguration {
+public class CqrsConfiguration {
 
     @Autowired
-    BeanFactory beanFactory;
+    ApplicationContext beanFactory;
 
     @Bean
     CqrsRequestHandlerMetadataSet getMetadataSet() {
@@ -16,13 +18,20 @@ public final class CqrsConfiguration {
     }
 
     @Bean
-    @Scope("Prototype")
+    CqrsRequestHandlerSet getCqrsRequestHandlerSet() {
+        Map<String, ValueRequestHandlerBase> beansOfType = beanFactory.getBeansOfType(ValueRequestHandlerBase.class);
+        return new CqrsRequestHandlerSet(beansOfType.values());
+    }
+    
+
+    @Bean
+    @Scope("prototype")
     CqrsRequestHandlerFactory getRequestHandlerFactory() {
-        return new CqrsRequestHandlerFactoryImpl(beanFactory);
+        return new CqrsRequestHandlerFactoryImpl(beanFactory.getBean(CqrsRequestHandlerMetadataSet.class), beanFactory);
     }
 
     @Bean
-    @Scope("Prototype")
+    @Scope("prototype")
     CqrsDispatcher getDispatcher() {
         return new CqrsDispatcherImpl(beanFactory.getBean(CqrsRequestHandlerFactory.class));
     }    

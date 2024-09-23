@@ -9,7 +9,8 @@ import java.util.stream.Collectors;
 public final class TestRequestHandlerFactory implements CqrsRequestHandlerFactory {
     private final Map<Class<?>, CqrsRequestHandlerMetadata> handlerByRequest;
 
-    public TestRequestHandlerFactory(Class<?>... handlers) {
+    @SafeVarargs
+    public TestRequestHandlerFactory(Class<? extends ValueRequestHandlerBase>... handlers) {
         List<CqrsRequestHandlerMetadata> metadatas = Arrays.stream(handlers)
             .map(cls -> CqrsRequestHandlerMetadata.createFromHandlerClass(cls))
             .collect(Collectors.toList());
