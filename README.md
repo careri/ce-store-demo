@@ -61,7 +61,9 @@ A command is a write operation of some sort.
 I intend to have an event bus backed by RabbitMQ. The microservices will generate events withing the transaction writing to the storage.
 The events will first be stored in the persistent layer as en entity, this is the Outbox pattern.
 
-A worker thread will consume the inbox and publish to RabbitMQ.
+A worker thread will consume the Outbox and publish to RabbitMQ. Look into the Spring Boot messaging.
+
+:x:
 
 ## Docker
 
