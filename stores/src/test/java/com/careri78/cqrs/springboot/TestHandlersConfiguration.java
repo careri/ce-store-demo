@@ -1,8 +1,10 @@
-package com.careri78.cqrs;
+package com.careri78.cqrs.springboot;
 
 import org.springframework.context.annotation.Bean;
 
-public class TestCqrsConfiguration {
+import com.careri78.cqrs.core.GetIntQueryHandler;
+
+public class TestHandlersConfiguration {
     
     @Bean
     GetIntQueryHandler getIntQueryHandler() {

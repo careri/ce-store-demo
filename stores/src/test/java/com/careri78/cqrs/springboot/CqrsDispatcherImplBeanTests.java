@@ -1,4 +1,4 @@
-package com.careri78.cqrs;
+package com.careri78.cqrs.springboot;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -7,6 +7,9 @@ import java.util.concurrent.ExecutionException;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import com.careri78.cqrs.core.CqrsDispatcher;
+import com.careri78.cqrs.core.GetIntQuery;
 
 // @SpringBootTest()
 class CqrsDispatcherImplBeanTests {

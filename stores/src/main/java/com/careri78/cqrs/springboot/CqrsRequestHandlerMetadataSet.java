@@ -1,9 +1,14 @@
-package com.careri78.cqrs;
+package com.careri78.cqrs.springboot;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 import org.springframework.beans.factory.BeanFactory;
+
+import com.careri78.cqrs.core.CqrsRequestHandlerMetadata;
+import com.careri78.cqrs.core.CqrsRequestHandlerSet;
+import com.careri78.cqrs.core.ValueRequest;
+import com.careri78.cqrs.core.ValueRequestHandlerBase;
 
 public final class CqrsRequestHandlerMetadataSet {
     private final ConcurrentMap<Class<? extends ValueRequestHandlerBase>, CqrsRequestHandlerMetadata> metadataByRequestHandler = new ConcurrentHashMap<Class<? extends ValueRequestHandlerBase>, CqrsRequestHandlerMetadata>();

@@ -1,4 +1,4 @@
-package com.careri78.cqrs;
+package com.careri78.cqrs.core;
 
 public interface ValueRequest<T> {
 

@@ -1,15 +1,12 @@
-package com.careri78.cqrs;
+package com.careri78.cqrs.core;
 
 import java.util.concurrent.CompletableFuture;
 
-import org.springframework.stereotype.Service;
-
-@Service
-final class CqrsDispatcherImpl implements CqrsDispatcher {
+public final class CqrsDefaultDispatcher implements CqrsDispatcher {
     
     private final CqrsRequestHandlerFactory factory;
 
-    public CqrsDispatcherImpl(CqrsRequestHandlerFactory factory) {
+    public CqrsDefaultDispatcher(CqrsRequestHandlerFactory factory) {
         this.factory = factory;
 
     }

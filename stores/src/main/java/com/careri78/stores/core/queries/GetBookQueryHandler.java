@@ -2,7 +2,7 @@ package com.careri78.stores.core.queries;
 
 import java.util.concurrent.CompletableFuture;
 
-import com.careri78.cqrs.ValueRequestHandler;
+import com.careri78.cqrs.core.ValueRequestHandler;
 import com.careri78.stores.core.repositories.BooksRepository;
 import com.careri78.stores.domain.Book;
 

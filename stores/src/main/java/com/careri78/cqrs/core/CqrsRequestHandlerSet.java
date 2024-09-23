@@ -1,8 +1,8 @@
-package com.careri78.cqrs;
+package com.careri78.cqrs.core;
 
 import java.util.Collection;
 
-// Creates an instance of all available handlers in the current DI scope.
+// A set of handlers.
 public final class CqrsRequestHandlerSet {
     private final Collection<ValueRequestHandlerBase> valueHandlers;
 

@@ -1,7 +1,13 @@
-package com.careri78.cqrs;
+package com.careri78.cqrs.springboot;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
+
+import com.careri78.cqrs.core.CqrsRequestHandlerFactory;
+import com.careri78.cqrs.core.CqrsRequestHandlerMetadata;
+import com.careri78.cqrs.core.ValueRequest;
+import com.careri78.cqrs.core.ValueRequestHandler;
+import com.careri78.cqrs.core.ValueRequestHandlerBase;
 
 public final class CqrsRequestHandlerFactoryImpl implements CqrsRequestHandlerFactory {
 

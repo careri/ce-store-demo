@@ -1,9 +1,9 @@
-package com.careri78.cqrs;
+package com.careri78.cqrs.core;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
-final class CqrsRequestHandlerMetadata {
+public final class CqrsRequestHandlerMetadata {
     private final Class<? extends ValueRequestHandlerBase> handlerClass;
     private final Class<?> queryClass;
     private final Class<?> returnClass;

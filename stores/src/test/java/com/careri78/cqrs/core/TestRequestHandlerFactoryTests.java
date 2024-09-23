@@ -1,4 +1,4 @@
-package com.careri78.cqrs;
+package com.careri78.cqrs.core;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 

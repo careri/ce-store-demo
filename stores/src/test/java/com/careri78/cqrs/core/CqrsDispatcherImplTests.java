@@ -1,4 +1,4 @@
-package com.careri78.cqrs;
+package com.careri78.cqrs.core;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -12,7 +12,7 @@ class CqrsDispatcherImplTests {
 	@Test
 	void shouldExecuteGetIntQueryAsync() throws InterruptedException, ExecutionException {
 		final int expected = 10;
-		CqrsDispatcherImpl dispatcher = new CqrsDispatcherImpl(new TestRequestHandlerFactory(GetIntQueryHandler.class));
+		CqrsDefaultDispatcher dispatcher = new CqrsDefaultDispatcher(new TestRequestHandlerFactory(GetIntQueryHandler.class));
 		CompletableFuture<Integer> intFuture = dispatcher.getAsync(new GetIntQuery(expected));
 		Integer actual = intFuture.get();
 		assertEquals(expected, actual);
