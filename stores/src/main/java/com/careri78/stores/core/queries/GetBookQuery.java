@@ -1,6 +1,6 @@
 package com.careri78.stores.core.queries;
 
-import com.careri78.stores.cqrs.ValueRequest;
+import com.careri78.cqrs.ValueRequest;
 import com.careri78.stores.domain.Book;
 
 public final class GetBookQuery implements ValueRequest<Book> {

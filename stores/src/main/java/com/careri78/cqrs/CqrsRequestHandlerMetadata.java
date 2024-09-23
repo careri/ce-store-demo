@@ -1,4 +1,4 @@
-package com.careri78.stores.cqrs;
+package com.careri78.cqrs;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;

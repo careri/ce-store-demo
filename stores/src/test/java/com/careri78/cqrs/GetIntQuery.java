@@ -1,4 +1,4 @@
-package com.careri78.stores.cqrs;
+package com.careri78.cqrs;
 
 public final class GetIntQuery implements ValueRequest<Integer> {
     private int value;

@@ -1,4 +1,4 @@
-package com.careri78.stores.cqrs;
+package com.careri78.cqrs;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
