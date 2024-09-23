@@ -63,6 +63,12 @@ The events will first be stored in the persistent layer as en entity, this is th
 
 A worker thread will consume the Outbox and publish to RabbitMQ. Look into the Spring Boot messaging.
 
+### Core components
+
+✔️
+
+### Outbox pattern
+
 :x:
 
 ## Docker
