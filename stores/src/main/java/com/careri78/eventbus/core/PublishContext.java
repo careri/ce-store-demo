@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import io.micrometer.common.lang.Nullable;
@@ -16,12 +17,17 @@ public final class PublishContext<T> {
     }
     private final Map<String, String> headers = java.util.Collections.emptyMap();
     private final T message;
-
     private final Collection<String> transportNames;
+    private final UUID id;
 
     private PublishContext(final T message, final Collection<String> transportNames) {
         this.message = message;
         this.transportNames = transportNames;
+        this.id = UUID.randomUUID();
+    }
+
+    public UUID getId() {
+        return id;
     }
 
     public T getMessage() {

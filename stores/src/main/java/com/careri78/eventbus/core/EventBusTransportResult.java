@@ -16,6 +16,10 @@ public class EventBusTransportResult {
         return create(EventBusResultCode.Success, transport, ctx, null);
     }
 
+    public static <T> EventBusTransportResult skip(EventBusTransport transport, PublishContext<T> ctx) {
+        return create(EventBusResultCode.Skipped, transport, ctx, null);
+    }
+
     private static <T> EventBusTransportResult create(EventBusResultCode code, EventBusTransport transport, PublishContext<T> ctx, @Nullable Throwable e) {
         return new EventBusTransportResult(
             code,
