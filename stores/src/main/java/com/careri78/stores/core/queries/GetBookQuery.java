@@ -1,10 +1,12 @@
 package com.careri78.stores.core.queries;
 
+import java.util.Optional;
+
 import com.careri78.cqrs.core.ValueRequest;
 import com.careri78.stores.domain.Book;
 
-public final class GetBookQuery implements ValueRequest<Book> {
-    private Long id;
+public final class GetBookQuery implements ValueRequest<Optional<Book>> {
+    private Long id = -1L;
     private String title;
 
     public Long getId() {
@@ -18,5 +20,17 @@ public final class GetBookQuery implements ValueRequest<Book> {
     }
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public static GetBookQuery FromId(Long id) {
+        GetBookQuery query = new GetBookQuery();
+        query.setId(id);
+        return query;
+    }
+
+    public static GetBookQuery FromTitle(String title) {
+        GetBookQuery query = new GetBookQuery();
+        query.setTitle(title);
+        return query;
     }
 }

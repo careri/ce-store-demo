@@ -1,13 +1,14 @@
 package com.careri78.stores.core.queries;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 import com.careri78.cqrs.core.ValueRequestHandler;
 import com.careri78.stores.core.repositories.BooksRepository;
 import com.careri78.stores.domain.Book;
 
-public final class GetBookQueryHandler implements ValueRequestHandler<GetBookQuery, Book> {
-    @SuppressWarnings("unused")
+public final class GetBookQueryHandler implements ValueRequestHandler<GetBookQuery, Optional<Book>> {
     private final BooksRepository repository;
 
     public GetBookQueryHandler(BooksRepository repository) {
@@ -15,8 +16,21 @@ public final class GetBookQueryHandler implements ValueRequestHandler<GetBookQue
     }
 
     @Override
-    public CompletableFuture<Book> getAsync(GetBookQuery query) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAsync'");
+    public CompletableFuture<Optional<Book>> getAsync(GetBookQuery query) {
+        final Long id = query.getId();
+        final String title = query.getTitle();
+        Optional<Book> book = id > -1
+            ? repository.findById(id)
+            : !title.isBlank()
+                ? findSingleByTitle(title)
+                : Optional.empty();
+        return CompletableFuture.completedFuture(book);
+    }
+
+    private Optional<Book> findSingleByTitle(String title) {
+        List<Book> books = repository.findByTitleContainingWithIgnoreCase(title);
+        return Optional.of(books.size() == 1
+            ? books.getFirst()
+            : null);
     }
 }
