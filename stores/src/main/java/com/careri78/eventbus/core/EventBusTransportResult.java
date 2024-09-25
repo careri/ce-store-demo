@@ -1,6 +1,5 @@
 package com.careri78.eventbus.core;
 
-import io.micrometer.common.lang.Nullable;
 
 public class EventBusTransportResult {
 
@@ -20,7 +19,7 @@ public class EventBusTransportResult {
         return create(EventBusResultCode.Skipped, transport, ctx, null);
     }
 
-    private static <T> EventBusTransportResult create(EventBusResultCode code, EventBusTransport transport, PublishContext<T> ctx, @Nullable Throwable e) {
+    private static <T> EventBusTransportResult create(EventBusResultCode code, EventBusTransport transport, PublishContext<T> ctx, Throwable e) {
         return new EventBusTransportResult(
             code,
             ctx.getMessage().getClass(),
@@ -33,13 +32,13 @@ public class EventBusTransportResult {
     private final Class<?> messageClass;
     private final Class<? extends EventBusTransport> transport;
     private final String name;
-    @Nullable private final Throwable Throwable;
+    private final Throwable Throwable;
     private EventBusTransportResult(
         EventBusResultCode code, 
         Class<?> messageClass, 
         Class<? extends EventBusTransport> transport,
         String name, 
-        @Nullable Throwable Throwable) {
+        Throwable Throwable) {
             this.resultCode = code;
             this.messageClass = messageClass;
             this.transport = transport;
@@ -63,7 +62,6 @@ public class EventBusTransportResult {
         return transport;
     }
 
-    @Nullable
     public Throwable getThrowable() {
         return Throwable;
     }

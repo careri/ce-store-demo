@@ -7,7 +7,6 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import io.micrometer.common.lang.Nullable;
 
 public final class PublishContext<T> {
     public static <T> PublishContext<T> create(final T message, final Collection<EventBusTransport> transports) {
@@ -38,7 +37,6 @@ public final class PublishContext<T> {
         return transportNames;
     }
 
-    @Nullable
     public String getHeader(final String key) {
         final Optional<String> keyMatch = headers
             .keySet()
@@ -52,7 +50,7 @@ public final class PublishContext<T> {
         return null;
     }
 
-    public void setHeader(final String key, @Nullable final String value) {
+    public void setHeader(final String key, final String value) {
         if (key == null || key.isBlank()) {
             throw new IllegalArgumentException(String.format("'%s' key can't be empty", key));
         }

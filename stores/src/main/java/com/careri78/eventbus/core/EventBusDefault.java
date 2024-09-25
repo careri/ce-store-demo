@@ -6,8 +6,6 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-import io.micrometer.common.lang.Nullable;
-
 public final class EventBusDefault implements EventBus {
 
     private final Collection<EventBusTransport> transports;
