@@ -29,8 +29,8 @@ public final class GetBookQueryHandler implements ValueRequestHandler<GetBookQue
 
     private Optional<Book> findSingleByTitle(String title) {
         List<Book> books = repository.findByTitleContainingWithIgnoreCase(title);
-        return Optional.of(books.size() == 1
-            ? books.getFirst()
-            : null);
+        return books.size() == 1
+            ? Optional.of(books.getFirst())
+            : Optional.empty();
     }
 }

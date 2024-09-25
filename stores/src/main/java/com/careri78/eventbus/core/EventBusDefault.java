@@ -20,7 +20,10 @@ public final class EventBusDefault implements EventBus {
     public <T> CompletableFuture<EventBusPublishResult<T>> publishAsync(final T message,
             final Consumer<PublishContext<T>> initContext) {
         final PublishContext<T> ctx = PublishContext.create(message, transports);
-        initContext.accept(ctx);
+        if (initContext != null) {
+            initContext.accept(ctx);
+        }
+
         final List<TransportTask<T>> tasks = transports
                 .stream()
                 .map(t -> new TransportTask<>(t, ctx))
@@ -35,16 +38,18 @@ public final class EventBusDefault implements EventBus {
                 .exceptionally(e -> createFailedResult(ctx, e));
     }
 
-    private <T> EventBusPublishResult<T> createSuccessResult(PublishContext<T> ctx, Collection<EventBusTransportResult> transportResults) {
+    private <T> EventBusPublishResult<T> createSuccessResult(PublishContext<T> ctx,
+            Collection<EventBusTransportResult> transportResults) {
         List<Throwable> errors = transportResults
-            .stream()
-            .filter(result -> result.getResultCode() == EventBusResultCode.Failed)
-            .map(result -> result.getThrowable())
-            .collect(Collectors.toUnmodifiableList());
+                .stream()
+                .filter(result -> result.getResultCode() == EventBusResultCode.Failed)
+                .map(result -> result.getThrowable())
+                .collect(Collectors.toUnmodifiableList());
         if (errors.isEmpty()) {
             return new EventBusPublishResult<T>(ctx.getMessage(), ctx.getTransportNames(), ctx.getHeaders(), null);
         }
-        return new EventBusPublishResult<T>(ctx.getMessage(), ctx.getTransportNames(), ctx.getHeaders(), new EventBusTransportException("Some transports failed", errors));
+        return new EventBusPublishResult<T>(ctx.getMessage(), ctx.getTransportNames(), ctx.getHeaders(),
+                new EventBusTransportException("Some transports failed", errors));
     }
 
     private <T> EventBusPublishResult<T> createFailedResult(PublishContext<T> ctx, Throwable error) {
@@ -109,8 +114,8 @@ public final class EventBusDefault implements EventBus {
             }
         }
 
-        private EventBusTransportResult handleError(@Nullable EventBusTransportResult result,
-                @Nullable Throwable error) {
+        private EventBusTransportResult handleError(EventBusTransportResult result,
+                Throwable error) {
             if (result != null) {
                 return result;
             }

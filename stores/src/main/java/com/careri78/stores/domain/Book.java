@@ -1,6 +1,7 @@
 package com.careri78.stores.domain;
 
-import io.micrometer.common.lang.NonNull;
+import org.apache.commons.lang3.StringUtils;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,9 +19,31 @@ public class Book {
 	@Column(name = "title")
 	private String title;
 
-    public void setTitle(@NonNull String title) {
-        if (title.length() == 0) {
+    public Book() {
+    }
+
+    public Book(String title) {
+        this();
+        setTitle(title);
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) throws IllegalArgumentException{
+        if (!StringUtils.isNoneBlank(title)) {
             throw new IllegalArgumentException("Title can't be empty");
         }
+
+        this.title = title;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

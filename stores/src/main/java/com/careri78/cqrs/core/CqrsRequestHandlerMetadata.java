@@ -60,6 +60,10 @@ public final class CqrsRequestHandlerMetadata {
     private static Class<?> getTypeParameterClass(Type variable) {
         if (variable instanceof Class<?> ) {
             return (Class<?>)variable;
+        } else if (variable instanceof ParameterizedType ) {
+            ParameterizedType p = (ParameterizedType)variable;
+            Type rawType = p.getRawType();
+            return getTypeParameterClass(rawType);
         }
 
         throw new UnsupportedOperationException(String.format("%s must be a class", variable.getTypeName()));
