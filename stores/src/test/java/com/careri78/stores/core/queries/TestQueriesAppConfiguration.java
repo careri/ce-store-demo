@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import com.careri78.cqrs.springboot.CqrsConfiguration;
 import com.careri78.repositories.BookRepositoryMap;
+import com.careri78.stores.core.commands.AddBookCommandHandler;
 import com.careri78.stores.core.repositories.BooksRepository;
 
 @Configuration
@@ -25,5 +26,10 @@ public class TestQueriesAppConfiguration {
     @Bean
     GetBookQueryHandler getBookQueryHandler() {
         return new GetBookQueryHandler(applicationContext.getBean(BooksRepository.class));
+    }
+
+    @Bean
+    AddBookCommandHandler addBookCommandHandler() {
+        return new AddBookCommandHandler(applicationContext.getBean(BooksRepository.class));
     }
 }

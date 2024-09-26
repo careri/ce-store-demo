@@ -20,9 +20,14 @@ public abstract class RepositoryMapBase<T, ID> implements Repository<T, ID> {
     }
 
     public <S extends T> S save(S entity) throws IllegalArgumentException {
+        ID currentId = getId(entity);
+        if (map.containsKey(currentId)) {
+            throw new IllegalArgumentException(String.format("Id %s is already added", currentId));
+        }
+
         ID id = createId(entity);
         if (map.containsKey(id)) {
-            throw new IllegalArgumentException(String.format("Id % already exists", id));
+            throw new IllegalArgumentException(String.format("Id %s already exists", id));
         }
         map.put(getId(entity), entity);
         return entity;
@@ -31,7 +36,7 @@ public abstract class RepositoryMapBase<T, ID> implements Repository<T, ID> {
     public void update(T entity) {
         ID id = getId(entity);
         if (!map.containsKey(id)) {
-            throw new IllegalArgumentException(String.format("Id % doesn't exists", id));
+            throw new IllegalArgumentException(String.format("Id %s doesn't exists", id));
         }
         map.put(getId(entity), entity);
     }
