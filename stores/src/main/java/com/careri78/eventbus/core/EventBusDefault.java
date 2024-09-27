@@ -6,6 +6,12 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
+/**
+* Class Info
+* 
+* @author Carl Ericsson
+* 
+*/
 public final class EventBusDefault implements EventBus {
 
     private final Collection<EventBusTransport> transports;
@@ -81,6 +87,12 @@ public final class EventBusDefault implements EventBus {
         });
     }
 
+/**
+* Class Info
+* 
+* @author Carl Ericsson
+* 
+*/
     private abstract class TransportTaskBase {
         protected final EventBusTransport transport;
 
@@ -91,6 +103,12 @@ public final class EventBusDefault implements EventBus {
         public abstract CompletableFuture<EventBusTransportResult> getResultAsync();
     }
 
+/**
+* Class Info
+* 
+* @author Carl Ericsson
+* 
+*/
     private final class TransportTask<T> extends TransportTaskBase {
         private final PublishContext<T> context;
 

@@ -6,6 +6,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+* Class Info
+* 
+* @author Carl Ericsson
+* 
+*/
 public final class TestRequestHandlerFactory implements CqrsRequestHandlerFactory {
     private final Map<Class<?>, CqrsRequestHandlerMetadata> handlerByRequest;
 

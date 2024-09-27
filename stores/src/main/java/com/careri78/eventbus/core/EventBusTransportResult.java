@@ -1,6 +1,12 @@
 package com.careri78.eventbus.core;
 
 
+/**
+* Class Info
+* 
+* @author Carl Ericsson
+* 
+*/
 public class EventBusTransportResult {
 
     public static <T> EventBusTransportResult failed(EventBusTransport transport, PublishContext<T> ctx, Throwable error) {

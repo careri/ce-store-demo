@@ -14,6 +14,12 @@
 
 // @Configuration
 // @EnableTransactionManagement
+/**
+* Class Info
+* 
+* @author Carl Ericsson
+* 
+*/
 // public class InMemoryPersistanceConfiguration {
 
 //     @Bean

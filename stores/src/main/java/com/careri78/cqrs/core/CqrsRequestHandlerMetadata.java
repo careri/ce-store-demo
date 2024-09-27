@@ -3,6 +3,12 @@ package com.careri78.cqrs.core;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
+/**
+* Class Info
+* 
+* @author Carl Ericsson
+* 
+*/
 public final class CqrsRequestHandlerMetadata {
     private final Class<? extends ValueRequestHandlerBase> handlerClass;
     private final Class<?> queryClass;

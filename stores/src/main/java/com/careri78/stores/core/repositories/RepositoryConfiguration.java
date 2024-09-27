@@ -7,6 +7,12 @@
 // import org.springframework.data.repository.core.support.RepositoryFactorySupport;
 
 // // @ComponentScan(basePackageClasses = { RepositoryMarker.class, Book.class })
+/**
+* Class Info
+* 
+* @author Carl Ericsson
+* 
+*/
 // public class RepositoryConfiguration {
 
 //     @Bean

@@ -11,8 +11,20 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
+/**
+* Class Info
+* 
+* @author Carl Ericsson
+* 
+*/
 public final class EventBusDefaultTests {
 
+/**
+* Class Info
+* 
+* @author Carl Ericsson
+* 
+*/
     class DispatchResult<TEvent> {
 
         private final String serviceName;

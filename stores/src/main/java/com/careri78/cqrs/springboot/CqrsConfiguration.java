@@ -13,6 +13,12 @@ import com.careri78.cqrs.core.CqrsRequestHandlerFactory;
 import com.careri78.cqrs.core.CqrsRequestHandlerSet;
 import com.careri78.cqrs.core.ValueRequestHandlerBase;
 
+/**
+* Class Info
+* 
+* @author Carl Ericsson
+* 
+*/
 public class CqrsConfiguration {
 
     @Autowired

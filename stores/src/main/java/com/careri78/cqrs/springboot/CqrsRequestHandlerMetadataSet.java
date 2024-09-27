@@ -10,6 +10,12 @@ import com.careri78.cqrs.core.CqrsRequestHandlerSet;
 import com.careri78.cqrs.core.ValueRequest;
 import com.careri78.cqrs.core.ValueRequestHandlerBase;
 
+/**
+* Class Info
+* 
+* @author Carl Ericsson
+* 
+*/
 public final class CqrsRequestHandlerMetadataSet {
     private final ConcurrentMap<Class<? extends ValueRequestHandlerBase>, CqrsRequestHandlerMetadata> metadataByRequestHandler = new ConcurrentHashMap<Class<? extends ValueRequestHandlerBase>, CqrsRequestHandlerMetadata>();
     private final ConcurrentMap<Class<?>, CqrsRequestHandlerMetadata> metadataByRequest = new ConcurrentHashMap<Class<?>, CqrsRequestHandlerMetadata>();

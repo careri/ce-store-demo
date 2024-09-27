@@ -2,6 +2,12 @@ package com.careri78.repositories;
 
 import java.util.concurrent.atomic.AtomicLong;
 
+/**
+* Class Info
+* 
+* @author Carl Ericsson
+* 
+*/
 public abstract class LongRepositoryMapBase<T> extends RepositoryMapBase<T, Long> {
     private final AtomicLong idCounter = new AtomicLong();
 

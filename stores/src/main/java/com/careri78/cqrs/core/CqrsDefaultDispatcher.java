@@ -2,6 +2,12 @@ package com.careri78.cqrs.core;
 
 import java.util.concurrent.CompletableFuture;
 
+/**
+* Class Info
+* 
+* @author Carl Ericsson
+* 
+*/
 public final class CqrsDefaultDispatcher implements CqrsDispatcher {
     
     private final CqrsRequestHandlerFactory factory;

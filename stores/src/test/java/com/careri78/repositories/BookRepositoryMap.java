@@ -5,6 +5,12 @@ import com.careri78.stores.core.repositories.BooksRepository;
 import com.careri78.stores.domain.Book;
 import org.apache.commons.lang3.StringUtils;
 
+/**
+* Class Info
+* 
+* @author Carl Ericsson
+* 
+*/
 public final class BookRepositoryMap extends LongRepositoryMapBase<Book> implements BooksRepository {
 
     @Override

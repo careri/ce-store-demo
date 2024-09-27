@@ -5,6 +5,12 @@ import java.util.Optional;
 import com.careri78.cqrs.core.ValueRequest;
 import com.careri78.stores.domain.Book;
 
+/**
+* Class Info
+* 
+* @author Carl Ericsson
+* 
+*/
 public final class GetBookQuery implements ValueRequest<Optional<Book>> {
     private Long id = -1L;
     private String title;

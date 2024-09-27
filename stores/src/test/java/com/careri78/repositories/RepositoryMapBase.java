@@ -9,6 +9,12 @@ import java.util.stream.Collectors;
 
 import org.springframework.data.repository.Repository;
 
+/**
+* Class Info
+* 
+* @author Carl Ericsson
+* 
+*/
 public abstract class RepositoryMapBase<T, ID> implements Repository<T, ID> {
     private final Map<ID, T> map = HashMap.newHashMap(0);
 

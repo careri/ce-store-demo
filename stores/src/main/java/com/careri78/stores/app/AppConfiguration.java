@@ -7,5 +7,11 @@ import com.careri78.cqrs.springboot.CqrsConfiguration;
 
 @Configuration
 @Import({ CqrsConfiguration.class })
+/**
+* Class Info
+* 
+* @author Carl Ericsson
+* 
+*/
 public class AppConfiguration {
 }

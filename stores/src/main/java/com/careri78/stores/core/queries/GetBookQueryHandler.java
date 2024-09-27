@@ -8,6 +8,12 @@ import com.careri78.cqrs.core.ValueRequestHandler;
 import com.careri78.stores.core.repositories.BooksRepository;
 import com.careri78.stores.domain.Book;
 
+/**
+* Class Info
+* 
+* @author Carl Ericsson
+* 
+*/
 public final class GetBookQueryHandler implements ValueRequestHandler<GetBookQuery, Optional<Book>> {
     private final BooksRepository repository;
 

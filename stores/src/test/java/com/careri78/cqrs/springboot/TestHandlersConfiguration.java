@@ -4,6 +4,12 @@ import org.springframework.context.annotation.Bean;
 
 import com.careri78.cqrs.core.GetIntQueryHandler;
 
+/**
+* Class Info
+* 
+* @author Carl Ericsson
+* 
+*/
 public class TestHandlersConfiguration {
     
     @Bean

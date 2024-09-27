@@ -4,6 +4,12 @@
 // import org.springframework.boot.test.context.SpringBootTest;
 
 // @SpringBootTest
+/**
+* Class Info
+* 
+* @author Carl Ericsson
+* 
+*/
 // class StoresApplicationTests {
 
 // 	@Test

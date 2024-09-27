@@ -13,6 +13,12 @@ import com.careri78.stores.core.repositories.BooksRepository;
 @Configuration
 @Import({ CqrsConfiguration.class })
 // @ComponentScan(basePackageClasses = { RepositoryMarker.class, Book.class })
+/**
+* Class Info
+* 
+* @author Carl Ericsson
+* 
+*/
 public class TestQueriesAppConfiguration {
 
     @Autowired

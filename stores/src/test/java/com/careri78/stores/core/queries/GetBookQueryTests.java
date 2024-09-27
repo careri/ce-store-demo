@@ -20,6 +20,12 @@ import com.careri78.stores.domain.Book;
 // @ExtendWith(SpringExtension.class)
 // @SpringBootTest(classes = {TestQueriesAppConfiguration.class})
 @ActiveProfiles("test")
+/**
+* Class Info
+* 
+* @author Carl Ericsson
+* 
+*/
 public final class GetBookQueryTests {
 
 	@Test

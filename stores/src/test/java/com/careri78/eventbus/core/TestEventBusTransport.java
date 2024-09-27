@@ -5,6 +5,12 @@ import java.util.stream.Collectors;
 import java.util.Collection;
 import java.util.concurrent.CompletableFuture;;
 
+/**
+* Class Info
+* 
+* @author Carl Ericsson
+* 
+*/
 public final class TestEventBusTransport implements EventBusTransport {
     private final Collection<EventBusTransportResult> publishedEvents = java.util.Collections
                 .synchronizedCollection(new java.util.ArrayList<>());

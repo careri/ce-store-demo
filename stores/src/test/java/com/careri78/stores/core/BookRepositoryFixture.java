@@ -6,6 +6,12 @@ import com.careri78.cqrs.core.CqrsDispatcher;
 import com.careri78.stores.core.repositories.BooksRepository;
 import com.careri78.stores.domain.Book;
 
+/**
+* Class Info
+* 
+* @author Carl Ericsson
+* 
+*/
 public final class BookRepositoryFixture implements Closeable {
 
     private final AnnotationConfigApplicationContext context;

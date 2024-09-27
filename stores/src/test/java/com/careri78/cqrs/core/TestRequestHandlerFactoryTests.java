@@ -4,6 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
 
+/**
+* Class Info
+* 
+* @author Carl Ericsson
+* 
+*/
 public class TestRequestHandlerFactoryTests {
 
     @Test

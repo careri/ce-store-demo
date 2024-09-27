@@ -9,6 +9,12 @@ import com.careri78.cqrs.core.ValueRequest;
 import com.careri78.cqrs.core.ValueRequestHandler;
 import com.careri78.cqrs.core.ValueRequestHandlerBase;
 
+/**
+* Class Info
+* 
+* @author Carl Ericsson
+* 
+*/
 public final class CqrsRequestHandlerFactoryImpl implements CqrsRequestHandlerFactory {
 
     private final BeanFactory beanFactory;

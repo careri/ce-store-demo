@@ -11,6 +11,12 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "books")
+/**
+* Class Info
+* 
+* @author Carl Ericsson
+* 
+*/
 public class Book {
     @Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

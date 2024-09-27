@@ -8,6 +8,12 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 
+/**
+* Class Info
+* 
+* @author Carl Ericsson
+* 
+*/
 public final class PublishContext<T> {
     public static <T> PublishContext<T> create(final T message, final Collection<EventBusTransport> transports) {
         return new PublishContext<T>(

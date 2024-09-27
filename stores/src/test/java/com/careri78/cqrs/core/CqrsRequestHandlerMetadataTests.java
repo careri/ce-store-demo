@@ -4,6 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+/**
+* Class Info
+* 
+* @author Carl Ericsson
+* 
+*/
 public final class CqrsRequestHandlerMetadataTests {
 
     @Test

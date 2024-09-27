@@ -3,6 +3,12 @@ package com.careri78.eventbus.core;
 import java.util.Map;
 
 
+/**
+* Class Info
+* 
+* @author Carl Ericsson
+* 
+*/
 public final class EventBusPublishResult<T> {
 
     private final T event;
