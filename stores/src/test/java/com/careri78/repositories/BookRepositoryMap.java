@@ -3,6 +3,7 @@ package com.careri78.repositories;
 import java.util.List;
 import com.careri78.stores.core.repositories.BooksRepository;
 import com.careri78.stores.domain.Book;
+
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -12,6 +13,10 @@ import org.apache.commons.lang3.StringUtils;
 * 
 */
 public final class BookRepositoryMap extends LongRepositoryMapBase<Book> implements BooksRepository {
+
+    public BookRepositoryMap() {
+        super(Book.class);
+    }
 
     @Override
     public List<Book> findByTitleContainingWithIgnoreCase(String title) {
@@ -27,5 +32,4 @@ public final class BookRepositoryMap extends LongRepositoryMapBase<Book> impleme
     protected void setId(long id, Book entity) {
         entity.setId(id);
     }
-    
 }

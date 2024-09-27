@@ -11,6 +11,10 @@ import java.util.concurrent.atomic.AtomicLong;
 public abstract class LongRepositoryMapBase<T> extends RepositoryMapBase<T, Long> {
     private final AtomicLong idCounter = new AtomicLong();
 
+    public LongRepositoryMapBase(Class<T> entityClass) {
+        super(entityClass);
+    }
+
     @Override
     protected Long createId(final T entity) {
         final long id = idCounter.incrementAndGet();
