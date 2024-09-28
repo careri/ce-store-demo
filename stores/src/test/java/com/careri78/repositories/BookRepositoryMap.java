@@ -19,7 +19,7 @@ public final class BookRepositoryMap extends LongRepositoryMapBase<Book> impleme
     }
 
     @Override
-    public List<Book> findByTitleContainingWithIgnoreCase(String title) {
+    public List<Book> findByTitleContainingIgnoreCase(String title) {
         return this.findItems(book -> StringUtils.containsIgnoreCase(book.getTitle(), title));
     }
 

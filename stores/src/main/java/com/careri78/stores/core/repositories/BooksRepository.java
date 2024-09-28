@@ -6,6 +6,6 @@ import java.util.Optional;
 import com.careri78.stores.domain.Book;
 
 public interface BooksRepository extends EntityRepository<Book, Long>{
-    List<Book> findByTitleContainingWithIgnoreCase(String title);
+    List<Book> findByTitleContainingIgnoreCase(String title);
     Optional<Book> findById(Long id);
 }
