@@ -29,6 +29,10 @@ public abstract class RepositoryMapBase<T, ID> implements Repository<T, ID> {
         this.entityClass = entityClass;
     }
 
+    public Iterable<T> findAll() {
+        return map.values().stream().map(this::deserializeData).collect(Collectors.toList());
+    }
+
     public Optional<T> findById(final ID id) {
         final byte[] data = map.get(id);
         return data != null

@@ -30,8 +30,13 @@ public class TestQueriesAppConfiguration {
     }
 
     @Bean
-    GetBookQueryHandler getBookQueryHandler() {
-        return new GetBookQueryHandler(applicationContext.getBean(BooksRepository.class));
+    BookQueryHandler getBookQueryHandler() {
+        return new BookQueryHandler(applicationContext.getBean(BooksRepository.class));
+    }
+
+    @Bean
+    BooksQueryHandler getBooksQueryHandler() {
+        return new BooksQueryHandler(applicationContext.getBean(BooksRepository.class));
     }
 
     @Bean

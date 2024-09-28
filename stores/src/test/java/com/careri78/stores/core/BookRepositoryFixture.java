@@ -39,6 +39,10 @@ public final class BookRepositoryFixture implements Closeable {
         return repository.save(book);
     }
 
+    public Iterable<Book> getAllBooks() {
+        return getBookRepository().findAll();
+    }
+
     private BooksRepository getBookRepository() {
         return context.getBean(BooksRepository.class);
     }
