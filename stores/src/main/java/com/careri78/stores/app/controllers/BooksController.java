@@ -2,6 +2,7 @@ package com.careri78.stores.app.controllers;
 
 import java.util.concurrent.CompletableFuture;
 
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,7 +22,7 @@ import com.careri78.stores.core.queries.BooksQuery;
 import com.careri78.stores.domain.Book;
 
 @RestController
-@RequestMapping(path = "/api/books", produces = "application/json")
+@RequestMapping(path = "/api/books", produces = MediaType.APPLICATION_JSON_VALUE)
 public class BooksController {
 
 	private final CqrsDispatcher dispatcher;
