@@ -1,5 +1,7 @@
 package com.careri78.cqrs.core;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
 * Class Info
 * 
@@ -7,9 +9,13 @@ package com.careri78.cqrs.core;
 * 
 */
 public final class NoValue {
-    static final NoValue Singleton = new NoValue();
+    public static final NoValue Singleton = new NoValue();
 
     private NoValue() {
         super();
+    }
+
+    public static CompletableFuture<NoValue> asFuture() {
+        return CompletableFuture.completedFuture(Singleton);
     }
 }

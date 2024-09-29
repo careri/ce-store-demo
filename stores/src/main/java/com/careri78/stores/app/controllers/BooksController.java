@@ -4,6 +4,7 @@ import java.util.concurrent.CompletableFuture;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.careri78.cqrs.core.CqrsDispatcher;
 import com.careri78.stores.core.commands.AddBookCommand;
+import com.careri78.stores.core.commands.DeleteBookCommand;
 import com.careri78.stores.core.queries.BookQuery;
 import com.careri78.stores.core.queries.BooksQuery;
 import com.careri78.stores.domain.Book;
@@ -49,6 +51,13 @@ public class BooksController {
 	public CompletableFuture<ResponseEntity<Book>> addAsync(@RequestBody(required = true) final Book book) {
 				return dispatcher.getAsync(AddBookCommand.FromBook(book))
 				.thenApplyAsync(b -> ResponseEntity.ok(b));
+	}
+
+	@DeleteMapping(path = "/{id}")
+	@Async
+	public CompletableFuture<Object> deleteByIdAsync(@PathVariable(name = "id", required = true) final Long id) {
+		return dispatcher.getAsync(DeleteBookCommand.FromId(id))
+			.thenApplyAsync(noValue -> ResponseEntity.noContent().build());
 	}
 
 }

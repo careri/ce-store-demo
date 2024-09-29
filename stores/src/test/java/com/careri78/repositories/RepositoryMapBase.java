@@ -62,6 +62,10 @@ public abstract class RepositoryMapBase<T, ID> implements Repository<T, ID> {
         map.put(getId(entity), serializeData(entity));
     }
 
+    public void deleteById(ID id) {
+        map.remove(id);
+    }
+
     public T delete(final T entity) {
         final byte[] data = map.remove(getId(entity));
         return data != null
