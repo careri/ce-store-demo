@@ -2,6 +2,7 @@ package com.careri78.stores.app.controllers;
 
 import java.util.concurrent.CompletableFuture;
 
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,7 +22,7 @@ import com.careri78.stores.core.queries.BooksQuery;
 import com.careri78.stores.domain.Book;
 
 @RestController
-@RequestMapping(path = "/api/books", produces = "application/json")
+@RequestMapping(path = "/api/books", produces = MediaType.APPLICATION_JSON_VALUE)
 public class BooksController {
 
 	private final CqrsDispatcher dispatcher;
@@ -30,7 +31,7 @@ public class BooksController {
 		this.dispatcher = dispatcher;
 	}
 
-	@GetMapping(path = "/{id}")
+	@GetMapping(path = "{id}")
 	@Async
 	public CompletableFuture<ResponseEntity<Book>> getByIdAsync(@PathVariable(name = "id", required = true) final Long id) {
 		return dispatcher.getAsync(BookQuery.FromId(id))
@@ -39,21 +40,21 @@ public class BooksController {
 				: null));
 	}
 
-	@GetMapping(path = "/")
+	@GetMapping(path = "")
 	@Async
 	public CompletableFuture<ResponseEntity<Iterable<Book>>> getByTitleAsync(@RequestParam(name = "title", required = false) final String title) {
 				return dispatcher.getAsync(BooksQuery.FromTitle(title))
 				.thenApplyAsync(list -> ResponseEntity.ok(list));
 	}
 
-	@PostMapping(path = "/")
+	@PostMapping(path = "")
 	@Async
 	public CompletableFuture<ResponseEntity<Book>> addAsync(@RequestBody(required = true) final Book book) {
 				return dispatcher.getAsync(AddBookCommand.FromBook(book))
 				.thenApplyAsync(b -> ResponseEntity.ok(b));
 	}
 
-	@DeleteMapping(path = "/{id}")
+	@DeleteMapping(path = "{id}")
 	@Async
 	public CompletableFuture<Object> deleteByIdAsync(@PathVariable(name = "id", required = true) final Long id) {
 		return dispatcher.getAsync(DeleteBookCommand.FromId(id))
