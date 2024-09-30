@@ -25,7 +25,7 @@ Developed with VS Code and a .devcontainer for Java.
 
 I'm using the import of differrent configurations to build the full application config.
 
-✔️ (Works but needs to be extended)
+✔️ 
 
 ## Persistance
 
@@ -37,13 +37,18 @@ Once I have the docker compose in place a MongoDb will be used as backend.
 ## Swagger
 
 I intend to have swagger exposed for testing the endpoints.
+swagger-ui/index.html
 
-:x:
+✔️ 
 
 ## CQRS
 
 A simple implementation of the CQRS pattern:
 https://martinfowler.com/bliki/CQRS.html
+
+### TODO
+
+A more robust way of parsing the generic hierarcy of the handlers.
 
 ✔️
 
