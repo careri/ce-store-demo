@@ -1,0 +1,13 @@
+### Requires the VS Code REST client extension
+@hostname = localhost
+@port = 8080
+@host = {{hostname}}:{{port}}
+@hostProtocol = http
+@baseUrl={{hostProtocol}}://{{hostname}}:{{port}}/api/
+
+POST {{baseUrl}}books
+Content-Type: application/json
+
+{
+    "title": "The Hitchhiker's Guide to the Galaxy"
+}

@@ -1,0 +1,8 @@
+### Requires the VS Code REST client extension
+@hostname = localhost
+@port = 8080
+@host = {{hostname}}:{{port}}
+@hostProtocol = http
+@baseUrl={{hostProtocol}}://{{hostname}}:{{port}}/api/
+
+DELETE  {{baseUrl}}books/1

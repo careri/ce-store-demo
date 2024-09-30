@@ -1,0 +1,9 @@
+### Requires the VS Code REST client extension
+@hostname = localhost
+@port = 8080
+@host = {{hostname}}:{{port}}
+@hostProtocol = http
+@baseUrl={{hostProtocol}}://{{hostname}}:{{port}}/api/
+
+GET {{baseUrl}}books?title=galaxy
+http://localhost:8080/swagger-ui/index.html
