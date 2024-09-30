@@ -1,6 +1,8 @@
 package com.careri78.stores.core;
 
 import java.io.Closeable;
+import java.util.Optional;
+
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import com.careri78.cqrs.core.CqrsDispatcher;
 import com.careri78.stores.core.repositories.BooksRepository;
@@ -41,6 +43,15 @@ public final class BookRepositoryFixture implements Closeable {
 
     public Iterable<Book> getAllBooks() {
         return getBookRepository().findAll();
+    }
+
+    public Optional<Book> getFirstBook() {
+        Iterable<Book> allBooks = getAllBooks();
+        for (Book book : allBooks) {
+            return Optional.of(book);
+        }
+
+        return Optional.empty();
     }
 
     private BooksRepository getBookRepository() {

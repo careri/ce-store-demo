@@ -1,7 +1,6 @@
 package com.careri78.stores.core.commands;
 
 import com.careri78.cqrs.core.Request;
-import com.careri78.stores.core.queries.BookQuery;
 
 public final class DeleteBookCommand implements Request {
     private Long id = -1L;
@@ -13,8 +12,8 @@ public final class DeleteBookCommand implements Request {
         this.id = id;
     }
 
-    public static BookQuery FromId(Long id) {
-        BookQuery query = new BookQuery();
+    public static DeleteBookCommand FromId(Long id) {
+        DeleteBookCommand query = new DeleteBookCommand();
         query.setId(id);
         return query;
     }
