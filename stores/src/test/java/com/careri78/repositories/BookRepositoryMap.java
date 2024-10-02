@@ -1,7 +1,7 @@
 package com.careri78.repositories;
 
 import java.util.List;
-import com.careri78.stores.core.repositories.BooksRepository;
+import com.careri78.stores.core.repositories.BookRepository;
 import com.careri78.stores.domain.Book;
 
 import org.apache.commons.lang3.StringUtils;
@@ -12,7 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 * @author Carl Ericsson
 * 
 */
-public final class BookRepositoryMap extends LongRepositoryMapBase<Book> implements BooksRepository {
+public final class BookRepositoryMap extends LongRepositoryMapBase<Book> implements BookRepository {
 
     public BookRepositoryMap() {
         super(Book.class);

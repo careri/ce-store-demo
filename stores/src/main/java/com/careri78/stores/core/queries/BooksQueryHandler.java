@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.careri78.cqrs.core.ValueRequestHandler;
-import com.careri78.stores.core.repositories.BooksRepository;
+import com.careri78.stores.core.repositories.BookRepository;
 import com.careri78.stores.domain.Book;
 
 /**
@@ -19,9 +19,9 @@ import com.careri78.stores.domain.Book;
 @Component
 @Scope("prototype")
 public final class BooksQueryHandler implements ValueRequestHandler<BooksQuery, Iterable<Book>> {
-    private final BooksRepository repository;
+    private final BookRepository repository;
 
-    public BooksQueryHandler(BooksRepository repository) {
+    public BooksQueryHandler(BookRepository repository) {
         this.repository = repository;
     }
 

@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import com.careri78.cqrs.core.CqrsDispatcher;
-import com.careri78.stores.core.repositories.BooksRepository;
+import com.careri78.stores.core.repositories.BookRepository;
 import com.careri78.stores.domain.Book;
 
 /**
@@ -37,7 +37,7 @@ public final class BookRepositoryFixture implements Closeable {
 
     public Book addBook(String title) {
         Book book = new Book(title);
-        BooksRepository repository = getBookRepository();
+        BookRepository repository = getBookRepository();
         return repository.save(book);
     }
 
@@ -54,8 +54,8 @@ public final class BookRepositoryFixture implements Closeable {
         return Optional.empty();
     }
 
-    private BooksRepository getBookRepository() {
-        return context.getBean(BooksRepository.class);
+    private BookRepository getBookRepository() {
+        return context.getBean(BookRepository.class);
     }
 
 }

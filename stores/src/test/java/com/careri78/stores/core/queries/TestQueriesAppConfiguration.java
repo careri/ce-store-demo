@@ -7,9 +7,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import com.careri78.cqrs.springboot.CqrsConfiguration;
 import com.careri78.repositories.BookRepositoryMap;
+import com.careri78.repositories.OutboxEntryRepositoryMap;
 import com.careri78.stores.core.commands.AddBookCommandHandler;
 import com.careri78.stores.core.commands.DeleteBookCommandHandler;
-import com.careri78.stores.core.repositories.BooksRepository;
+import com.careri78.stores.core.repositories.BookRepository;
+import com.careri78.stores.core.repositories.OutboxEntryRepository;
 
 @Configuration
 @Import({ CqrsConfiguration.class })
@@ -26,27 +28,44 @@ public class TestQueriesAppConfiguration {
     private ApplicationContext applicationContext;
 
     @Bean
-    BooksRepository getRepository() {
+    BookRepository getBookRepository() {
         return new BookRepositoryMap();
     }
 
     @Bean
+    OutboxEntryRepositoryMap getOutboxRepository() {
+        return new OutboxEntryRepositoryMap();
+    }
+
+    @Bean
     BookQueryHandler getBookQueryHandler() {
-        return new BookQueryHandler(applicationContext.getBean(BooksRepository.class));
+        return new BookQueryHandler(applicationContext.getBean(BookRepository.class));
     }
 
     @Bean
     BooksQueryHandler getBooksQueryHandler() {
-        return new BooksQueryHandler(applicationContext.getBean(BooksRepository.class));
+        return new BooksQueryHandler(applicationContext.getBean(BookRepository.class));
+    }
+
+    @Bean
+    OutboxEntryQueryHandler getOutboxEntryQueryHandler() {
+        return new OutboxEntryQueryHandler(applicationContext.getBean(OutboxEntryRepository.class));
+    }
+
+    @Bean
+    OutboxEntriesQueryHandler getOutboxEntriesQueryHandler() {
+        return new OutboxEntriesQueryHandler(applicationContext.getBean(OutboxEntryRepository.class));
     }
 
     @Bean
     AddBookCommandHandler addBookCommandHandler() {
-        return new AddBookCommandHandler(applicationContext.getBean(BooksRepository.class));
+        return new AddBookCommandHandler(
+            applicationContext.getBean(BookRepository.class),
+            applicationContext.getBean(OutboxEntryRepository.class));
     }
 
     @Bean
     DeleteBookCommandHandler deleteBookCommandHandlerBookCommandHandler() {
-        return new DeleteBookCommandHandler(applicationContext.getBean(BooksRepository.class));
+        return new DeleteBookCommandHandler(applicationContext.getBean(BookRepository.class));
     }
 }

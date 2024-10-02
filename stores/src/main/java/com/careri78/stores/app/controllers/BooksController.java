@@ -42,7 +42,7 @@ public class BooksController {
 
 	@GetMapping(path = "")
 	@Async
-	public CompletableFuture<ResponseEntity<Iterable<Book>>> getByTitleAsync(@RequestParam(name = "title", required = false) final String title) {
+	public CompletableFuture<ResponseEntity<Iterable<Book>>> findAsync(@RequestParam(name = "title", required = false) final String title) {
 				return dispatcher.getAsync(BooksQuery.FromTitle(title))
 				.thenApplyAsync(list -> ResponseEntity.ok(list));
 	}
