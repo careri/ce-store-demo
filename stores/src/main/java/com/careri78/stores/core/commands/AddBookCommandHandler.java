@@ -20,7 +20,7 @@ import com.careri78.stores.domain.OutboxEntry;
  */
 @Component
 @Scope("prototype")
-public final class AddBookCommandHandler implements ValueRequestHandler<AddBookCommand, Book> {
+public class AddBookCommandHandler implements ValueRequestHandler<AddBookCommand, Book> {
     private final BookRepository repository;
     private final OutboxEntryRepository outboxEntryRepository;
 

@@ -26,7 +26,8 @@
                 "vscjava.vscode-java-pack",
 				"vscjava.vscode-gradle",
 				"redhat.vscode-xml",
-				"eamodio.gitlens"
+				"eamodio.gitlens",
+				"humao.rest-client"
             ]
         }
     }

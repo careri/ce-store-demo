@@ -12,7 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "books")
+@Table(name = "outbox_entry")
 /**
  * Class Info
  * 
@@ -34,18 +34,18 @@ public class OutboxEntry {
     private String name;
 
     @Column(name = "timestamp")
-    private long timestampMilli;
+    private String timestampUtc;
 
-    public long getTimestampMilli() {
-        return timestampMilli;
+    public String getTimestampUtc() {
+        return timestampUtc;
     }
 
-    public Instant timestampAsInstant() {
-        return Instant.ofEpochMilli(timestampMilli);
+    public Instant toTimestampInstant() {
+        return Instant.parse(timestampUtc);
     }
 
-    public void setTimestampMilli(long timestampMilli) {
-        this.timestampMilli = timestampMilli;
+    public void setTimestampUtc(String timestampUtc) {
+        this.timestampUtc = timestampUtc;
     }
 
     public OutboxEntry() {
@@ -56,7 +56,7 @@ public class OutboxEntry {
         setName(name);
         setSource(source);
         setContent(content);
-        timestampMilli = Instant.now().toEpochMilli();
+        timestampUtc = Instant.now().toString();
     }    
 
     public String getContent() {
