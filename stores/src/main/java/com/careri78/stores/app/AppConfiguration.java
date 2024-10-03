@@ -14,17 +14,18 @@ import com.careri78.cqrs.springboot.CqrsConfiguration;
 import com.careri78.stores.app.controllers.ControllersMarker;
 import com.careri78.stores.app.repositories.RepositoryMarker;
 import com.careri78.stores.core.commands.CommandsMarker;
+import com.careri78.stores.core.messaging.MessagingConfiguration;
+import com.careri78.stores.core.messaging.MessagingMarker;
 import com.careri78.stores.core.queries.QueriesMarker;
 import com.careri78.stores.domain.DomainMarker;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Configuration
-@Import({ CqrsConfiguration.class })
+@Import({ CqrsConfiguration.class, MessagingConfiguration.class })
 @EnableTransactionManagement
 @EnableWebMvc
-@EnableJms
 @EnableJpaRepositories(basePackageClasses = { RepositoryMarker.class })
-@ComponentScan(basePackageClasses = { ControllersMarker.class, QueriesMarker.class, CommandsMarker.class })
+@ComponentScan(basePackageClasses = { ControllersMarker.class, QueriesMarker.class, CommandsMarker.class, MessagingMarker.class })
 @EntityScan(basePackageClasses = { DomainMarker.class })
 // @EnableWebMvc
 /**
@@ -34,7 +35,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * 
  */
 public class AppConfiguration {
-    
+
     @Bean
     public ObjectMapper objectMapper()
     {
