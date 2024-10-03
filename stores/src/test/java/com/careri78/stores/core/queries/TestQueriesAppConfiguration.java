@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.jms.core.JmsTemplate;
 
+import com.careri78.cqrs.core.CqrsDispatcher;
 import com.careri78.cqrs.springboot.CqrsConfiguration;
 import com.careri78.repositories.BookRepositoryMap;
 import com.careri78.repositories.OutboxEntryRepositoryMap;
@@ -102,15 +103,13 @@ public class TestQueriesAppConfiguration {
     AddBookCommandHandler addBookCommandHandler(
             final BookRepository bookRepository,
             final OutboxEntryRepository outboxEntryRepository,
-            final JmsTemplate jms,
-            final Queue outboxQueue,
+            final CqrsDispatcher dispatcher,
             final ObjectMapper mapper) {
         return new AddBookCommandHandler(
                 bookRepository,
                 outboxEntryRepository,
-                jms,
-                outboxQueue,
-                mapper);
+                mapper,
+                dispatcher);
     }
 
     @Bean

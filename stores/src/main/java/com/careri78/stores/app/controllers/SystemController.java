@@ -24,6 +24,7 @@ public class SystemController {
 		this.env = env;
 	}
 
+	@SuppressWarnings("rawtypes")
 	@GetMapping(path = "")
 	public ResponseEntity<Properties> get() {
 		// Copied from https://stackoverflow.com/questions/23506471/access-all-environment-properties-as-a-map-or-properties-object

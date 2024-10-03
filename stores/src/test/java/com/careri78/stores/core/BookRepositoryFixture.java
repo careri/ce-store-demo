@@ -3,8 +3,6 @@ package com.careri78.stores.core;
 import java.io.Closeable;
 import java.util.Optional;
 
-import javax.management.RuntimeErrorException;
-
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.core.ResolvableType;
 
