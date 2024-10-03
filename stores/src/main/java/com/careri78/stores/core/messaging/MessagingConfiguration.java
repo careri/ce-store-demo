@@ -9,9 +9,7 @@ import jakarta.jms.Queue;
 
 @EnableJms
 @Configuration
-public final class MessagingConfiguration {
-
-    
+public class MessagingConfiguration {
     /**
      * The queue used for triggering the outbox publish logic
      * @return An inmemory queue
