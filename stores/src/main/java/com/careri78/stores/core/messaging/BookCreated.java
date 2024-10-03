@@ -15,8 +15,9 @@ public final class BookCreated {
     }
 
     public static BookCreated FromBook(Book createdBook) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'FromBook'");
+        var book = new BookCreated();
+        book.setId(createdBook.getId());
+        return book;
     }
 
 }

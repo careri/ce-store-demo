@@ -1,7 +1,10 @@
-package com.careri78.stores.core.commands;
+package com.careri78.stores.core.messaging;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.function.Consumer;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -10,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import com.careri78.cqrs.core.CqrsDispatcher;
 import com.careri78.stores.core.BookRepositoryFixture;
+import com.careri78.stores.core.commands.AddBookCommand;
 import com.careri78.stores.core.queries.TestQueriesAppConfiguration;
 import com.careri78.stores.domain.Book;
 
@@ -19,26 +23,18 @@ import com.careri78.stores.domain.Book;
 * @author Carl Ericsson
 * 
 */
-public final class AddBookCommandsTests {
-	
-	@Test
-	public void shouldThrowIfBookIdExists() throws InterruptedException, ExecutionException {
-		try (final BookRepositoryFixture ctx = createFixture()) {
-			Book book = ctx.addBook("Hello");
-			final CqrsDispatcher dispatcher = ctx.getDispatcher();
-			final CompletableFuture<Book> bookFuture = dispatcher.getAsync(AddBookCommand.FromBook(book));
-			assertThrows(Throwable.class, bookFuture::get);
-		}
-	}
+public final class BookCreatedTests {
 
 	@Test
-	public void shouldAddBook() throws InterruptedException, ExecutionException {
+	public void shouldAddBookCreatedMessage() throws InterruptedException, ExecutionException {
 		try (final BookRepositoryFixture ctx = createFixture()) {
 			final CqrsDispatcher dispatcher = ctx.getDispatcher();
 			final CompletableFuture<Book> bookFuture = dispatcher
 					.getAsync(AddBookCommand.FromBook(new Book("Hello World")));
-			final Book actual = bookFuture.get();
-			assertNotNull(actual);
+			bookFuture.get();
+			var queue = ctx.getOutboxQueue();
+            var entry = queue.poll();
+            assertEquals(BookCreated.class.getName(), entry.getName());
 		}
 	}
 

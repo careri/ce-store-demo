@@ -3,17 +3,22 @@ package com.careri78.stores.core;
 import java.io.Closeable;
 import java.util.Optional;
 
+import javax.management.RuntimeErrorException;
+
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.core.ResolvableType;
+
 import com.careri78.cqrs.core.CqrsDispatcher;
 import com.careri78.stores.core.repositories.BookRepository;
 import com.careri78.stores.domain.Book;
+import com.careri78.stores.domain.OutboxEntry;
 
 /**
-* Class Info
-* 
-* @author Carl Ericsson
-* 
-*/
+ * Class Info
+ * 
+ * @author Carl Ericsson
+ * 
+ */
 public final class BookRepositoryFixture implements Closeable {
 
     private final AnnotationConfigApplicationContext context;
@@ -56,6 +61,12 @@ public final class BookRepositoryFixture implements Closeable {
 
     private BookRepository getBookRepository() {
         return context.getBean(BookRepository.class);
+    }
+
+    @SuppressWarnings("unchecked")
+    public java.util.Queue<OutboxEntry> getOutboxQueue() {
+        String[] beanNamesForType = context.getBeanNamesForType(ResolvableType.forClassWithGenerics(java.util.Queue.class, OutboxEntry.class));
+        return (java.util.Queue<OutboxEntry>)context.getBean(beanNamesForType[0]);
     }
 
 }
