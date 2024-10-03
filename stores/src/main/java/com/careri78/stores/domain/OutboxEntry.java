@@ -49,6 +49,11 @@ public class OutboxEntry {
     }
 
     public OutboxEntry() {
+        timestampUtc = Instant.now().toString();
+    }
+
+    public OutboxEntry(final String name, final String source) {
+        this(name, source, "");
     }
 
     public OutboxEntry(final String name, final String source, final String content) {
@@ -56,7 +61,6 @@ public class OutboxEntry {
         setName(name);
         setSource(source);
         setContent(content);
-        timestampUtc = Instant.now().toString();
     }    
 
     public String getContent() {

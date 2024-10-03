@@ -1,10 +1,18 @@
 package com.careri78.stores.core.queries;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
+
+import java.util.LinkedList;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.jms.core.JmsTemplate;
+
 import com.careri78.cqrs.springboot.CqrsConfiguration;
 import com.careri78.repositories.BookRepositoryMap;
 import com.careri78.repositories.OutboxEntryRepositoryMap;
@@ -12,16 +20,22 @@ import com.careri78.stores.core.commands.AddBookCommandHandler;
 import com.careri78.stores.core.commands.DeleteBookCommandHandler;
 import com.careri78.stores.core.repositories.BookRepository;
 import com.careri78.stores.core.repositories.OutboxEntryRepository;
+import com.careri78.stores.domain.OutboxEntry;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import jakarta.jms.Destination;
+import jakarta.jms.JMSException;
+import jakarta.jms.Queue;
 
 @Configuration
 @Import({ CqrsConfiguration.class })
 // @ComponentScan(basePackageClasses = { RepositoryMarker.class, Book.class })
 /**
-* Class Info
-* 
-* @author Carl Ericsson
-* 
-*/
+ * Class Info
+ * 
+ * @author Carl Ericsson
+ * 
+ */
 public class TestQueriesAppConfiguration {
 
     @Autowired
@@ -35,6 +49,33 @@ public class TestQueriesAppConfiguration {
     @Bean
     OutboxEntryRepositoryMap getOutboxRepository() {
         return new OutboxEntryRepositoryMap();
+    }
+
+    @Bean
+    public ObjectMapper objectMapper() {
+        return new ObjectMapper();
+    }
+
+    @Bean
+    public java.util.Queue<OutboxEntry> outboxEntryQueueData() {
+        return new LinkedList<>();
+    }
+
+    @Bean
+    public JmsTemplate jmsTemplate(@Qualifier("outboxEntryQueueData") java.util.Queue<OutboxEntry> entryQueue)
+            throws JMSException {
+        var queue = mock(JmsTemplate.class);
+        doAnswer(i -> entryQueue.offer(i.getArgument(1)))
+            .when(queue)
+            .convertAndSend(any(Destination.class), any(Object.class));
+        return queue;
+    }
+
+    @Bean
+    public Queue outboxQueue() throws JMSException {
+        var queue = mock(Queue.class);
+        when(queue.getQueueName()).thenReturn("outboxQueue");
+        return queue;
     }
 
     @Bean
@@ -58,10 +99,18 @@ public class TestQueriesAppConfiguration {
     }
 
     @Bean
-    AddBookCommandHandler addBookCommandHandler() {
+    AddBookCommandHandler addBookCommandHandler(
+            final BookRepository bookRepository,
+            final OutboxEntryRepository outboxEntryRepository,
+            final JmsTemplate jms,
+            final Queue outboxQueue,
+            final ObjectMapper mapper) {
         return new AddBookCommandHandler(
-            applicationContext.getBean(BookRepository.class),
-            applicationContext.getBean(OutboxEntryRepository.class));
+                bookRepository,
+                outboxEntryRepository,
+                jms,
+                outboxQueue,
+                mapper);
     }
 
     @Bean
