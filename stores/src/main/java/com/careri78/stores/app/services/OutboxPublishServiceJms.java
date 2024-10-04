@@ -9,6 +9,7 @@ import java.util.stream.StreamSupport;
 
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Component;
 
 import com.careri78.stores.core.repositories.OutboxEntryRepository;
 import com.careri78.stores.core.services.OutboxPublishService;
@@ -17,6 +18,7 @@ import com.careri78.stores.domain.OutboxEntry;
 import jakarta.jms.Queue;
 import jakarta.transaction.Transactional;
 
+@Component
 public class OutboxPublishServiceJms implements OutboxPublishService {
 
     private final OutboxEntryRepository repository;
