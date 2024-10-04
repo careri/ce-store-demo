@@ -6,6 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
@@ -32,6 +33,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
     MessagingMarker.class,
     ServiceMarker.class })
 @EntityScan(basePackageClasses = { DomainMarker.class })
+@EnableScheduling
 // @EnableWebMvc
 /**
  * Class Info
