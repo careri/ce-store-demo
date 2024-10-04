@@ -1,5 +1,9 @@
 package com.careri78.stores.core.queries;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
@@ -19,6 +23,7 @@ import com.careri78.stores.domain.OutboxEntry;
 @Component
 @Scope("prototype")
 public final class OutboxEntryQueryHandler implements ValueRequestHandler<OutboxEntryQuery, Optional<OutboxEntry>> {
+    private static final Logger log = LoggerFactory.getLogger(OutboxEntryQueryHandler.class);
     private final OutboxEntryRepository repository;
 
     public OutboxEntryQueryHandler(OutboxEntryRepository repository) {
@@ -28,6 +33,7 @@ public final class OutboxEntryQueryHandler implements ValueRequestHandler<Outbox
     @Override
     public CompletableFuture<Optional<OutboxEntry>> getAsync(OutboxEntryQuery query) {
         final Long id = query.getId();
+        log.debug("%s", id);
         Optional<OutboxEntry> entry = id > -1
             ? repository.findById(id)
             : Optional.empty();

@@ -1,5 +1,6 @@
 package com.careri78.stores.core.queries;
 
+
 import java.util.Optional;
 
 import com.careri78.cqrs.core.ValueRequest;

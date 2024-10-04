@@ -1,5 +1,9 @@
 package com.careri78.stores.app.controllers;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.concurrent.CompletableFuture;
 
 import org.springframework.http.MediaType;
@@ -19,6 +23,7 @@ import com.careri78.stores.domain.OutboxEntry;
 @RestController
 @RequestMapping(path = "/api/outbox", produces = MediaType.APPLICATION_JSON_VALUE)
 public class OutboxController {
+    private static final Logger log = LoggerFactory.getLogger(OutboxController.class);
 
 	private final CqrsDispatcher dispatcher;
 
@@ -29,6 +34,7 @@ public class OutboxController {
 	@GetMapping(path = "{id}")
 	@Async
 	public CompletableFuture<ResponseEntity<OutboxEntry>> getByIdAsync(@PathVariable(name = "id", required = true) final Long id) {
+		log.debug("Get %s", id);
 		return dispatcher.getAsync(OutboxEntryQuery.FromId(id))
 			.thenApplyAsync(optional -> ResponseEntity.ofNullable(optional.isPresent()
 				? optional.get()
@@ -38,7 +44,8 @@ public class OutboxController {
 	@GetMapping(path = "")
 	@Async
 	public CompletableFuture<ResponseEntity<Iterable<OutboxEntry>>> findAsync(@RequestParam(name = "name", required = false) final String name) {
-				return dispatcher.getAsync(OutboxEntriesQuery.FromName(name))
-				.thenApplyAsync(list -> ResponseEntity.ok(list));
+		log.debug("Find %s", name);
+		return dispatcher.getAsync(OutboxEntriesQuery.FromName(name))
+			.thenApplyAsync(list -> ResponseEntity.ok(list));
 	}
 }

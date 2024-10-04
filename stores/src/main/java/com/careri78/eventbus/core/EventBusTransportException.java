@@ -9,7 +9,6 @@ import java.util.List;
 * 
 */
 public class EventBusTransportException extends RuntimeException {
-
     private final List<Throwable> errors;
 
     public EventBusTransportException(final String message, final List<Throwable> errors) {

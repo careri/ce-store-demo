@@ -1,6 +1,5 @@
 package com.careri78.eventbus.core;
 
-
 /**
 * Class Info
 * 

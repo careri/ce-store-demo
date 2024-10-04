@@ -10,7 +10,6 @@ import java.util.Map;
 * 
 */
 public final class EventBusPublishResult<T> {
-
     private final T event;
     private final Iterable<String> transportNames;
     private final Map<String, String> headers;

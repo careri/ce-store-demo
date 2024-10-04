@@ -1,5 +1,9 @@
 package com.careri78.stores.core.commands;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.concurrent.CompletableFuture;
 
 import org.springframework.context.annotation.Scope;
@@ -25,6 +29,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Component
 @Scope("prototype")
 public class AddBookCommandHandler implements ValueRequestHandler<AddBookCommand, Book> {
+    private static final Logger log = LoggerFactory.getLogger(AddBookCommandHandler.class);
     private final BookRepository repository;
     private final OutboxEntryRepository outboxEntryRepository;
     private final CqrsDispatcher dispatcher;
@@ -44,6 +49,7 @@ public class AddBookCommandHandler implements ValueRequestHandler<AddBookCommand
     @Override
     public CompletableFuture<Book> getAsync(final AddBookCommand request) {
         final Book book = request.getBook();
+        log.debug("%s", request.getBook());
         if (book == null) {
             throw new IllegalArgumentException(String.format("%s book is requierd for command"));
         }
@@ -53,6 +59,7 @@ public class AddBookCommandHandler implements ValueRequestHandler<AddBookCommand
                 .supplyAsync(() -> CreateBook(book, entry))
                 .thenComposeAsync(createdBook -> {
                     dispatcher.sendAsync(new ProcessOutboxCommand()); // Don't wait for the result
+                    log.debug("Done: %s", createdBook);
                     return CompletableFuture.completedStage(createdBook);
                 });
     }

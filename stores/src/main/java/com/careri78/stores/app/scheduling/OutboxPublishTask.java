@@ -11,7 +11,6 @@ import com.careri78.stores.core.services.OutboxPublishService;
 
 @Component
 public final class OutboxPublishTask {
- 
     private static final Logger log = LoggerFactory.getLogger(OutboxPublishTask.class);
     private final OutboxPublishService service;
 

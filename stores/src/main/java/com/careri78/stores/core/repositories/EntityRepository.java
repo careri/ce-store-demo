@@ -1,5 +1,6 @@
 package com.careri78.stores.core.repositories;
 
+
 import java.util.Optional;
 
 import org.springframework.data.repository.Repository;

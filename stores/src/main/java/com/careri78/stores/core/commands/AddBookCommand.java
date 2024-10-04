@@ -1,5 +1,6 @@
 package com.careri78.stores.core.commands;
 
+
 import com.careri78.cqrs.core.ValueRequest;
 import com.careri78.stores.domain.Book;
 

@@ -1,5 +1,9 @@
 package com.careri78.stores.app.services;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Semaphore;
@@ -20,6 +24,7 @@ import jakarta.transaction.Transactional;
 
 @Component
 public class OutboxPublishServiceJms implements OutboxPublishService {
+    private static final Logger log = LoggerFactory.getLogger(OutboxPublishServiceJms.class);
 
     private final OutboxEntryRepository repository;
     private final JmsTemplate jmsTemplate;
@@ -73,12 +78,14 @@ public class OutboxPublishServiceJms implements OutboxPublishService {
     private int publishAll() {
         int count = 0;
         try {
+            log.debug("Publish all");
             while (true) {
                 var batch = getBatch(10);
                 if (batch.size() == 0) {
                     break;
                 }
-
+                
+                log.debug("Publish batch: %s", batch.size());
                 for (OutboxEntry entry : batch) {
                     publish(entry);
                     count++;
@@ -99,6 +106,7 @@ public class OutboxPublishServiceJms implements OutboxPublishService {
 
     @Transactional
     private void publish(OutboxEntry entry) {
+        log.debug("Publish: %s", entry.getId());
         jmsTemplate.convertAndSend(outboxQueue, entry);
         repository.deleteById(entry.getId());
     }

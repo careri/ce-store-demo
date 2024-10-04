@@ -1,5 +1,9 @@
 package com.careri78.cqrs.core;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -9,6 +13,7 @@ import java.util.concurrent.CompletableFuture;
 * 
 */
 public final class CqrsDefaultDispatcher implements CqrsDispatcher {
+    private static final Logger log = LoggerFactory.getLogger(CqrsDefaultDispatcher.class);
     
     private final CqrsRequestHandlerFactory factory;
 
@@ -25,6 +30,7 @@ public final class CqrsDefaultDispatcher implements CqrsDispatcher {
     @Override
     public <TRequest extends ValueRequest<T>, T> CompletableFuture<T> getAsync(TRequest request) {
         ValueRequestHandler<TRequest, T> handler = factory.get(request);
+        log.debug("Dispatching %s to %s", request, handler);
         return handler.getAsync(request);
     }
 }

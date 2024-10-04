@@ -1,5 +1,9 @@
 package com.careri78.stores.core.commands;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.concurrent.CompletableFuture;
 
 import org.springframework.context.annotation.Scope;
@@ -19,6 +23,7 @@ import com.careri78.stores.core.services.OutboxPublishService;
 @Component
 @Scope("prototype")
 public final class ProcessOutboxCommandHandler implements RequestHandler<ProcessOutboxCommand> {
+    private static final Logger log = LoggerFactory.getLogger(ProcessOutboxCommandHandler.class);
 
     private final OutboxPublishService service;
 
@@ -28,6 +33,7 @@ public final class ProcessOutboxCommandHandler implements RequestHandler<Process
     }
     @Override
     public CompletableFuture<NoValue> getAsync(final ProcessOutboxCommand query) {
+        log.debug("Executing");
         return service.publishAllAsync().thenApplyAsync(count -> NoValue.Singleton);
     }
     

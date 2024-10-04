@@ -1,5 +1,9 @@
 package com.careri78.stores.core.commands;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.concurrent.CompletableFuture;
 
 import org.springframework.context.annotation.Scope;
@@ -18,6 +22,7 @@ import com.careri78.stores.core.repositories.BookRepository;
 @Component
 @Scope("prototype")
 public final class DeleteBookCommandHandler implements RequestHandler<DeleteBookCommand> {
+    private static final Logger log = LoggerFactory.getLogger(DeleteBookCommandHandler.class);
     private final BookRepository repository;
 
     public DeleteBookCommandHandler(BookRepository repository) {
@@ -27,6 +32,7 @@ public final class DeleteBookCommandHandler implements RequestHandler<DeleteBook
     @Override
     public CompletableFuture<NoValue> getAsync(DeleteBookCommand request) {
         final Long id = request.getId();
+        log.debug("%s", id);
         repository.deleteById(id);
         return NoValue.asFuture();
     }

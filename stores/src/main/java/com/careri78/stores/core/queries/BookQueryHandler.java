@@ -1,5 +1,9 @@
 package com.careri78.stores.core.queries;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
@@ -19,6 +23,7 @@ import com.careri78.stores.domain.Book;
 @Component
 @Scope("prototype")
 public final class BookQueryHandler implements ValueRequestHandler<BookQuery, Optional<Book>> {
+    private static final Logger log = LoggerFactory.getLogger(BookQueryHandler.class);
     private final BookRepository repository;
 
     public BookQueryHandler(BookRepository repository) {
@@ -28,6 +33,7 @@ public final class BookQueryHandler implements ValueRequestHandler<BookQuery, Op
     @Override
     public CompletableFuture<Optional<Book>> getAsync(BookQuery query) {
         final Long id = query.getId();
+        log.debug("%s", id);
         Optional<Book> book = id > -1
             ? repository.findById(id)
             : Optional.empty();

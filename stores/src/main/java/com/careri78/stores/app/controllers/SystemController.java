@@ -1,5 +1,9 @@
 package com.careri78.stores.app.controllers;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Arrays;
 import java.util.Properties;
 import java.util.stream.StreamSupport;
@@ -17,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(path = "/api/system", produces = MediaType.APPLICATION_JSON_VALUE)
 public class SystemController {
+    private static final Logger log = LoggerFactory.getLogger(SystemController.class);
 
 	private final Environment env;
 
@@ -28,6 +33,7 @@ public class SystemController {
 	@GetMapping(path = "")
 	public ResponseEntity<Properties> get() {
 		// Copied from https://stackoverflow.com/questions/23506471/access-all-environment-properties-as-a-map-or-properties-object
+		log.debug("Get");
 		Properties props = new Properties();
 		MutablePropertySources propSrcs = ((AbstractEnvironment) env).getPropertySources();
 		StreamSupport.stream(propSrcs.spliterator(), false)

@@ -1,5 +1,6 @@
 package com.careri78.stores.core.services;
 
+
 import java.util.concurrent.CompletableFuture;
 
 public interface OutboxPublishService {

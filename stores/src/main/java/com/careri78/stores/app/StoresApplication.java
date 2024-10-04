@@ -1,5 +1,6 @@
 package com.careri78.stores.app;
 
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

@@ -1,5 +1,9 @@
 package com.careri78.eventbus.core;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -13,6 +17,7 @@ import java.util.stream.Collectors;
 * 
 */
 public final class EventBusDefault implements EventBus {
+    private static final Logger log = LoggerFactory.getLogger(EventBusDefault.class);
 
     private final Collection<EventBusTransport> transports;
 
@@ -24,6 +29,7 @@ public final class EventBusDefault implements EventBus {
     public <T> CompletableFuture<EventBusPublishResult<T>> publishAsync(final T message,
             final Consumer<PublishContext<T>> initContext) {
         final PublishContext<T> ctx = PublishContext.create(message, transports);
+        log.debug("Publishing %s", message);
         if (initContext != null) {
             initContext.accept(ctx);
         }
@@ -87,12 +93,12 @@ public final class EventBusDefault implements EventBus {
         });
     }
 
-/**
-* Class Info
-* 
-* @author Carl Ericsson
-* 
-*/
+    /**
+    * Class Info
+    * 
+    * @author Carl Ericsson
+    * 
+    */
     private abstract class TransportTaskBase {
         protected final EventBusTransport transport;
 
@@ -103,12 +109,12 @@ public final class EventBusDefault implements EventBus {
         public abstract CompletableFuture<EventBusTransportResult> getResultAsync();
     }
 
-/**
-* Class Info
-* 
-* @author Carl Ericsson
-* 
-*/
+    /**
+    * Class Info
+    * 
+    * @author Carl Ericsson
+    * 
+    */
     private final class TransportTask<T> extends TransportTaskBase {
         private final PublishContext<T> context;
 
