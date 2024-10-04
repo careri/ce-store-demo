@@ -17,10 +17,13 @@ import com.careri78.cqrs.core.CqrsDispatcher;
 import com.careri78.cqrs.springboot.CqrsConfiguration;
 import com.careri78.repositories.BookRepositoryMap;
 import com.careri78.repositories.OutboxEntryRepositoryMap;
+import com.careri78.stores.app.services.OutboxPublishServiceJms;
 import com.careri78.stores.core.commands.AddBookCommandHandler;
 import com.careri78.stores.core.commands.DeleteBookCommandHandler;
+import com.careri78.stores.core.commands.ProcessOutboxCommandHandler;
 import com.careri78.stores.core.repositories.BookRepository;
 import com.careri78.stores.core.repositories.OutboxEntryRepository;
+import com.careri78.stores.core.services.OutboxPublishService;
 import com.careri78.stores.domain.OutboxEntry;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -58,6 +61,14 @@ public class TestQueriesAppConfiguration {
     }
 
     @Bean
+    public OutboxPublishService outboxPublishService(
+            final OutboxEntryRepository repository,
+            final JmsTemplate jmsTemplate,
+            final Queue outboxQueue) {
+        return new OutboxPublishServiceJms(repository, jmsTemplate, outboxQueue);
+    }
+
+    @Bean
     public java.util.Queue<OutboxEntry> outboxEntryQueueData() {
         return new LinkedList<>();
     }
@@ -67,8 +78,8 @@ public class TestQueriesAppConfiguration {
             throws JMSException {
         var queue = mock(JmsTemplate.class);
         doAnswer(i -> entryQueue.offer(i.getArgument(1)))
-            .when(queue)
-            .convertAndSend(any(Destination.class), any(Object.class));
+                .when(queue)
+                .convertAndSend(any(Destination.class), any(Object.class));
         return queue;
     }
 
@@ -97,6 +108,11 @@ public class TestQueriesAppConfiguration {
     @Bean
     OutboxEntriesQueryHandler getOutboxEntriesQueryHandler() {
         return new OutboxEntriesQueryHandler(applicationContext.getBean(OutboxEntryRepository.class));
+    }
+
+    @Bean
+    ProcessOutboxCommandHandler getProcessOutboxCommandHandler() {
+        return new ProcessOutboxCommandHandler(applicationContext.getBean(OutboxPublishService.class));
     }
 
     @Bean

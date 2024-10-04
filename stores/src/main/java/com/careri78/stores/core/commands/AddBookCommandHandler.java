@@ -65,7 +65,7 @@ public class AddBookCommandHandler implements ValueRequestHandler<AddBookCommand
             final String json = mapper.writer().writeValueAsString(bookCreated);
             entry.setContent(json);
             outboxEntryRepository
-                    .save(new OutboxEntry("book_created", "stores", json));
+                    .save(new OutboxEntry(BookCreated.class.getName(), "stores", json));
             return createdBook;
         } catch (final JsonProcessingException e) {
             throw new RuntimeException("Failed to create book", e);
