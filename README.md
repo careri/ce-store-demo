@@ -80,9 +80,23 @@ A worker thread will consume the Outbox and publish to RabbitMQ. Look into the S
 
 ## Layered build
 
-The Dockerfile is a layered build meaning that the final output will only be the output needed to run in combination with a small docker image with a JRE.
+Defined in docker-compose-build.yaml
 
-:x:
+### Building
+
+*docker compose -f docker-compose-build.yml build*
+
+Builds the layers and copies only the needed output to the final app stage
+
+### Run unit tests
+
+*docker compose -f docker-compose-build.yml run tests*
+
+### Running without dependecies (using in memory stuff)
+
+*docker compose -f docker-compose-build.yml run app*
+
+✔️ (can be improved)
 
 
 ### Docker Compose

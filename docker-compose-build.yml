@@ -1,0 +1,20 @@
+services:
+
+  app:
+    image: cestoredemo
+    build: &build
+      context: .
+      dockerfile: ./Dockerfile
+
+  tests:
+    build:
+      <<: *build
+      target: test
+
+  cestoredemo:
+    image: ce-store-demo
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - 3000:3000
