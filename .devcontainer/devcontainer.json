@@ -12,6 +12,9 @@
 			"installGradle": "true"
 		}
 	},
+	"containerEnv": {
+		"JAVA_HOME": "/usr/lib/jvm/msopenjdk-current"
+	},
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
@@ -27,7 +30,8 @@
 				"vscjava.vscode-gradle",
 				"redhat.vscode-xml",
 				"eamodio.gitlens",
-				"humao.rest-client"
+				"humao.rest-client",
+				"ms-azuretools.vscode-docker"
             ]
         }
     }
