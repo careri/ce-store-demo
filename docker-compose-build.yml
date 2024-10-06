@@ -1,7 +1,7 @@
 services:
 
   app:
-    image: cestoredemo
+    image: cestoredemo-${BUILD_BUILDNUMBER:-0.0.1}
     build: &build
       context: .
       dockerfile: ./Dockerfile
@@ -10,11 +10,3 @@ services:
     build:
       <<: *build
       target: test
-
-  cestoredemo:
-    image: ce-store-demo
-    build:
-      context: .
-      dockerfile: ./Dockerfile
-    ports:
-      - 3000:3000

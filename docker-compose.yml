@@ -1,0 +1,8 @@
+services:
+
+  cestoredemo:
+    image: cestoredemo-${BUILD_BUILDNUMBER:-0.0.1}
+    ports:
+      - 3000:3000
+    environment:
+      - server.port=3000
