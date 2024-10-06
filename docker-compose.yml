@@ -6,3 +6,24 @@ services:
       - 3000:3000
     environment:
       - server.port=3000
+      # ARTEMIS ACTIVEMQ CONFIGURATION
+      - spring.activemq.in-memory=false
+      - spring.activemq.pool.enabled=true
+      - spring.activemq.broker-url=tcp://localhost:61616
+      - spring.activemq.user=cestoredemo
+      - spring.activemq.password=cestoredemo
+      - spring.activemq.packages.trust-all=true
+      - spring.artemis.embedded.queues=messages
+    depends_on:
+      - mq
+
+  mq:
+    image: apache/activemq-artemis:latest-alpine
+    ports:
+      - "8161:8161"
+      - "61616:61616"
+    environment:
+      - ARTEMIS_USER=cestoredemo
+      - ARTEMIS_PASSWORD=cestoredemo
+    volumes:
+      - ./docker-resources/mq/etc/:/var/lib/artemis-instance/etc-override
