@@ -10,6 +10,7 @@ import com.careri78.cqrs.core.CqrsDispatcher;
 import com.careri78.stores.core.repositories.BookRepository;
 import com.careri78.stores.domain.Book;
 import com.careri78.stores.domain.OutboxEntry;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Class Info
@@ -31,6 +32,10 @@ public final class BookRepositoryFixture implements Closeable {
 
     public CqrsDispatcher getDispatcher() {
         return context.getBean(CqrsDispatcher.class);
+    }
+
+    public ObjectMapper getObjectMapper() {
+        return context.getBean(ObjectMapper.class);
     }
 
     @Override
@@ -62,9 +67,9 @@ public final class BookRepositoryFixture implements Closeable {
     }
 
     @SuppressWarnings("unchecked")
-    public java.util.Queue<OutboxEntry> getOutboxQueue() {
-        String[] beanNamesForType = context.getBeanNamesForType(ResolvableType.forClassWithGenerics(java.util.Queue.class, OutboxEntry.class));
-        return (java.util.Queue<OutboxEntry>)context.getBean(beanNamesForType[0]);
+    public java.util.Queue<String> getOutboxQueue() {
+        String[] beanNamesForType = context.getBeanNamesForType(ResolvableType.forClassWithGenerics(java.util.Queue.class, String.class));
+        return (java.util.Queue<String>)context.getBean(beanNamesForType[0]);
     }
 
 }
