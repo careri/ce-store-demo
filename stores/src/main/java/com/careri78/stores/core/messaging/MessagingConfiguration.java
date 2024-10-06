@@ -17,6 +17,6 @@ public class MessagingConfiguration {
     @Bean
     public Queue outboxQueue() {
 
-        return new ActiveMQQueue("local.inmemory.outbox");
+        return new ActiveMQQueue("stores.outbox");
     }
 }

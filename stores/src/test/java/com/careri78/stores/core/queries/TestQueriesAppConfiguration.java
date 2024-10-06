@@ -64,8 +64,9 @@ public class TestQueriesAppConfiguration {
     public OutboxPublishService outboxPublishService(
             final OutboxEntryRepository repository,
             final JmsTemplate jmsTemplate,
-            final Queue outboxQueue) {
-        return new OutboxPublishServiceJms(repository, jmsTemplate, outboxQueue);
+            final Queue outboxQueue,
+            final ObjectMapper mapper) {
+        return new OutboxPublishServiceJms(repository, jmsTemplate, outboxQueue, mapper);
     }
 
     @Bean

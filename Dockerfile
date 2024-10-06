@@ -1,27 +1,25 @@
 # syntax=docker/dockerfile:1
 
-# Copy files
-FROM gradle:8.10.2-jdk21 AS files
+# Copy buildSrc and build it, this doesn't change often
+FROM gradle:8.10.2-jdk21 AS buildsrc
 WORKDIR /app
 COPY buildSrc/ buildSrc/
-COPY stores/ stores/
 COPY gradle/libs.versions.toml gradle/libs.versions.toml
-COPY gradlew gradlew
 COPY settings.gradle settings.gradle
-COPY docker-resources/gradle.properties gradle.properties
+RUN gradle buildSrc:build
 
-# Build
-FROM files AS build
-RUN gradle wrapper stores:build
+# Copy and build stores source files, changes most of the time
+FROM buildsrc AS build
+COPY stores/ stores/
+RUN gradle stores:compileJava 
 
 # Run tests
 FROM build AS test
-WORKDIR /app
-RUN gradle wrapper stores:test
+RUN gradle stores:test
 
-# Build
+# Publish
 FROM build AS publish
-RUN gradle wrapper build
+RUN gradle build
 
 # Slim image with compiled jar only
 FROM amazoncorretto:23.0.0-alpine3.20 AS app

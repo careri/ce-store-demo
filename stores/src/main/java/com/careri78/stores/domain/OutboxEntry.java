@@ -1,5 +1,6 @@
 package com.careri78.stores.domain;
 
+import java.io.Serializable;
 import java.time.Instant;
 
 import org.apache.commons.lang3.StringUtils;
@@ -19,7 +20,7 @@ import jakarta.persistence.Table;
  * @author Carl Ericsson
  * 
  */
-public class OutboxEntry {
+public class OutboxEntry implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
