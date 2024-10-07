@@ -6,6 +6,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
+import org.springframework.jms.support.converter.MessageConverter;
+import org.springframework.jms.support.converter.MessageType;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -27,13 +30,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @EnableTransactionManagement
 @EnableWebMvc
 @EnableJpaRepositories(basePackageClasses = { RepositoryMarker.class })
-@ComponentScan(basePackageClasses = { 
-    ControllersMarker.class, 
-    QueriesMarker.class, 
-    CommandsMarker.class, 
-    MessagingMarker.class,
-    ServiceMarker.class,
-    SchedulingMarker.class })
+@ComponentScan(basePackageClasses = {
+        ControllersMarker.class,
+        QueriesMarker.class,
+        CommandsMarker.class,
+        MessagingMarker.class,
+        ServiceMarker.class,
+        SchedulingMarker.class })
 @EntityScan(basePackageClasses = { DomainMarker.class })
 @EnableScheduling
 // @EnableWebMvc
@@ -46,8 +49,20 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class AppConfiguration {
 
     @Bean
-    public ObjectMapper objectMapper()
-    {
+    public ObjectMapper objectMapper() {
         return new ObjectMapper();
+    }
+
+    @Bean
+    public MessageConverter jacksonJmsMessageConverter() {
+        MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
+        converter.setTargetType(MessageType.TEXT);
+        converter.setTypeIdPropertyName("_jmsType");
+
+        // // Define the types to convert
+        // Map<String, Class<?>> typeIdMap = new HashMap<>();
+        // typeIdMap.put("BookCreated", BookCreated.class);
+        // converter.setTypeIdMappings(typeIdMap);
+        return converter;
     }
 }

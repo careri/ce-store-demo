@@ -1,9 +1,12 @@
 package com.careri78.stores.domain;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.time.Instant;
 
 import org.apache.commons.lang3.StringUtils;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -102,5 +105,10 @@ public class OutboxEntry implements Serializable {
 
     public void setId(final long id) {
         this.id = id;
+    }
+
+    public Object getEvent(ObjectMapper mapper) throws IOException, ClassNotFoundException {
+        Class<?> contentClass = Class.forName(this.getName());
+        return mapper.reader().readValue(this.getContent(), contentClass);
     }
 }

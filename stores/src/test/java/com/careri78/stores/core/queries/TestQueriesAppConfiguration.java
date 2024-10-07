@@ -5,7 +5,6 @@ import static org.mockito.Mockito.*;
 
 import java.util.LinkedList;
 
-import org.mockito.stubbing.Answer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
@@ -66,30 +65,23 @@ public class TestQueriesAppConfiguration {
             final OutboxEntryRepository repository,
             final JmsTemplate jmsTemplate,
             final Queue outboxQueue,
-            final ObjectMapper mapper) {
-        return new OutboxPublishServiceJms(repository, jmsTemplate, outboxQueue, mapper);
+            final ObjectMapper objectMapper) {
+        return new OutboxPublishServiceJms(repository, jmsTemplate, outboxQueue, objectMapper);
     }
 
     @Bean
-    public java.util.Queue<String> outboxEntryQueueData() {
+    public java.util.Queue<Object> outboxEntryQueueData() {
         return new LinkedList<>();
     }
 
     @Bean
-    public JmsTemplate jmsTemplate(@Qualifier("outboxEntryQueueData") java.util.Queue<String> entryQueue)
+    public JmsTemplate jmsTemplate(@Qualifier("outboxEntryQueueData") java.util.Queue<Object> entryQueue)
             throws JMSException {
         var queue = mock(JmsTemplate.class);
-        doAnswer(getAddJmsAnswer(entryQueue))
-            .when(queue)
-            .convertAndSend(any(Destination.class), any(String.class));
+        doAnswer(i -> entryQueue.offer(i.getArgument(1)))
+                .when(queue)
+                .convertAndSend(any(Destination.class), any(Object.class));
         return queue;
-    }
-
-    private static Answer<Void> getAddJmsAnswer(java.util.Queue<String> entryQueue) {
-        return i -> {
-            entryQueue.offer(i.getArgument(1));
-            return null;
-        };
     }
 
     @Bean

@@ -1,8 +1,9 @@
 package com.careri78.stores.core.messaging;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+
 import java.util.function.Consumer;
-import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -13,7 +14,6 @@ import com.careri78.stores.core.BookRepositoryFixture;
 import com.careri78.stores.core.commands.AddBookCommand;
 import com.careri78.stores.core.queries.TestQueriesAppConfiguration;
 import com.careri78.stores.domain.Book;
-import com.careri78.stores.domain.OutboxEntry;
 
 /**
 * Class Info
@@ -24,16 +24,15 @@ import com.careri78.stores.domain.OutboxEntry;
 public final class BookCreatedTests {
 
 	@Test
-	public void shouldAddBookCreatedMessage() throws InterruptedException, ExecutionException, IOException {
+	public void shouldAddBookCreatedMessage() throws InterruptedException, ExecutionException {
 		try (final BookRepositoryFixture ctx = createFixture()) {
 			final CqrsDispatcher dispatcher = ctx.getDispatcher();
 			final CompletableFuture<Book> bookFuture = dispatcher
 					.getAsync(AddBookCommand.FromBook(new Book("Hello World")));
 			bookFuture.get();
 			var queue = ctx.getOutboxQueue();
-            var json = queue.poll();
-			var entry = ctx.getObjectMapper().reader().readValue(json, OutboxEntry.class);
-            assertEquals(BookCreated.class.getName(), entry.getName());
+            var entry = queue.poll();
+			assertInstanceOf(BookCreated.class, entry);
 		}
 	}
 
