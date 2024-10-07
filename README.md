@@ -63,10 +63,10 @@ A command is a write operation of some sort.
 
 ## EventBus
 
-I intend to have an event bus backed by RabbitMQ. The microservices will generate events withing the transaction writing to the storage.
+I intend to have an event bus backed by Apache ActiveMQ. The microservices will generate events withing the transaction writing to the storage.
 The events will first be stored in the persistent layer as en entity, this is the Outbox pattern.
 
-A worker thread will consume the Outbox and publish to RabbitMQ. Look into the Spring Boot messaging.
+A worker thread will consume the Outbox and publish to ActiveMQ.
 
 ### Core components
 
@@ -74,7 +74,7 @@ A worker thread will consume the Outbox and publish to RabbitMQ. Look into the S
 
 ### Outbox pattern
 
-:x:
+✔️
 
 ## Docker
 
@@ -103,7 +103,11 @@ Builds the layers and copies only the needed output to the final app stage
 
 All microservices and dependencies will be configured using docker compose.
 
-:x:
+✔️ Stores microservice
+✔️ ActiveMQ
+:x: Books microservice
+:x: Pricing microservice
+:x: MongoDb
 
 
 
