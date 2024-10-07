@@ -28,8 +28,9 @@ services:
     # volumes:
     #    - ./docker-resources/mq/etc:/var/lib/artemis-instance/etc-override
 
-  cli:
-    image: ubuntu:24.10
-    depends_on:
-      - mq
-    command: tail -F anything
+  # Tool for debugging network issues etc
+  # cli:
+  #   image: ubuntu:24.10
+  #   depends_on:
+  #     - mq
+  #   command: tail -F anything

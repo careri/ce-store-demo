@@ -18,7 +18,7 @@ FROM build AS test
 RUN gradle stores:test
 
 # Publish
-FROM build AS publish
+FROM test AS publish
 RUN gradle build
 
 # Slim image with compiled jar only
@@ -28,7 +28,7 @@ COPY --from=publish /app/stores/build/libs/stores-0.0.1-SNAPSHOT.jar /app/stores
 WORKDIR /app
 VOLUME /tmp
 ARG JAVA_OPTS
-ENV JAVA_OPTS=$JAVA_OPTS
+ENV JAVA_OPTS=$JAVA_OPTS    
 EXPOSE 3000
 # ENTRYPOINT exec java $JAVA_OPTS -jar cestoredemo.jar
 # For Spring-Boot project, use the entrypoint below to reduce Tomcat startup time.
